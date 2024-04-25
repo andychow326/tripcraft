@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:15.3
+    restart: always
+    environment:
+      POSTGRES_DB: tripcraft
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  server:
+    build:
+      context: server
+      dockerfile: Dockerfile.dev
+    ports:
+      - 8000:8000
+    env_file:
+      - ./server/.env
+    depends_on:
+      - db
+    volumes:
+      - ./server:/usr/src/app
+
+  portal:
+    build:
+      context: portal
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3000:3000
+    depends_on:
+      - server
+    volumes:
+      - /usr/src/app/node_modules
+      - ./portal:/usr/src/app
+
+volumes:
+  db_data:
