@@ -1,11 +1,16 @@
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import ScreenLayout from "../components/ScreenLayout";
 import HomeScreen from "../screens/HomeScreen";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomeScreen />,
+    element: (
+      <ScreenLayout>
+        <HomeScreen />
+      </ScreenLayout>
+    ),
   },
 ]);
 

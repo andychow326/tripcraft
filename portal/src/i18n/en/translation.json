@@ -1,1 +1,5 @@
-{}
+{
+  "ScreenLayout.navbar.logo.name": "Trip Craft",
+  "ScreenLayout.navbar.button.signup.label": "Sign Up",
+  "ScreenLayout.navbar.button.login.label": "Log In"
+}
