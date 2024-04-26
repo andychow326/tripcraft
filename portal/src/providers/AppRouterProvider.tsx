@@ -2,10 +2,11 @@ import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ScreenLayout from "../components/ScreenLayout";
 import HomeScreen from "../screens/HomeScreen";
+import AppRoutes from "../AppRoutes";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: AppRoutes.HomeScreen.path,
     element: (
       <ScreenLayout>
         <HomeScreen />
