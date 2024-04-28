@@ -1,5 +1,16 @@
 {
   "ScreenLayout.navbar.logo.name": "Trip Craft",
   "ScreenLayout.navbar.button.signup.label": "Sign Up",
-  "ScreenLayout.navbar.button.login.label": "Log In"
+  "ScreenLayout.navbar.button.login.label": "Log In",
+
+  "LoginModal.header": "Welcome!",
+  "LoginModal.body.input.username.label": "Username or Email",
+  "LoginModal.body.input.username.placeholder": "Enter your username or email",
+  "LoginModal.body.input.password.label": "Password",
+  "LoginModal.body.input.password.placeholder": "Enter your password",
+  "LoginModal.body.checkbox.remember_me.label": "Remember Me",
+  "LoginModal.body.button.login.label": "LOG IN",
+  "LoginModal.body.button.forgot_password.label": "Forgot Password?",
+  "LoginModal.footer.button.signup.hint": "Don't have an account?",
+  "LoginModal.footer.button.signup.label": "Sign Up"
 }
