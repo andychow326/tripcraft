@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useContext } from "react";
 import {
   Button,
   Link,
@@ -8,10 +8,12 @@ import {
   NavbarItem,
 } from "@nextui-org/react";
 import { useTranslation } from "react-i18next";
+import { AppModalContext } from "../providers/AppModalProvider";
 
 const ScreenLayout: React.FC<PropsWithChildren> = (props) => {
   const { children } = props;
   const { t } = useTranslation();
+  const { onOpenLoginModal } = useContext(AppModalContext);
 
   return (
     <div className="flex flex-col w-full h-full">
@@ -28,7 +30,12 @@ const ScreenLayout: React.FC<PropsWithChildren> = (props) => {
             </Button>
           </NavbarItem>
           <NavbarItem>
-            <Button color="primary" href="#" variant="flat">
+            <Button
+              color="primary"
+              href="#"
+              variant="flat"
+              onPress={onOpenLoginModal}
+            >
               {t("ScreenLayout.navbar.button.login.label")}
             </Button>
           </NavbarItem>
