@@ -13,7 +13,7 @@ import { AppModalContext } from "../providers/AppModalProvider";
 const ScreenLayout: React.FC<PropsWithChildren> = (props) => {
   const { children } = props;
   const { t } = useTranslation();
-  const { onOpenLoginModal } = useContext(AppModalContext);
+  const { onOpenLoginModal, onOpenSignupModal } = useContext(AppModalContext);
 
   return (
     <div className="flex flex-col w-full h-full">
@@ -25,7 +25,12 @@ const ScreenLayout: React.FC<PropsWithChildren> = (props) => {
         </NavbarBrand>
         <NavbarContent justify="end">
           <NavbarItem className="hidden lg:flex">
-            <Button as={Link} color="secondary" variant="light">
+            <Button
+              as={Link}
+              color="secondary"
+              variant="light"
+              onPress={onOpenSignupModal}
+            >
               {t("ScreenLayout.navbar.button.signup.label")}
             </Button>
           </NavbarItem>
