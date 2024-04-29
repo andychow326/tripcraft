@@ -12,5 +12,18 @@
   "LoginModal.body.button.login.label": "LOG IN",
   "LoginModal.body.button.forgot_password.label": "Forgot Password?",
   "LoginModal.footer.button.signup.hint": "Don't have an account?",
-  "LoginModal.footer.button.signup.label": "Sign Up"
+  "LoginModal.footer.button.signup.label": "Sign Up",
+
+  "SignupModal.header": "Create Account",
+  "SignupModal.body.input.username.label": "Username",
+  "SignupModal.body.input.username.placeholder": "Enter your username",
+  "SignupModal.body.input.email.label": "Email",
+  "SignupModal.body.input.email.placeholder": "Enter your email",
+  "SignupModal.body.input.password.label": "Password",
+  "SignupModal.body.input.password.placeholder": "Enter your Password",
+  "SignupModal.body.input.password_confirm.label": "Confirm Password",
+  "SignupModal.body.input.password_confirm.placeholder": "Enter your password again",
+  "SignupModal.body.button.signup.label": "SIGN UP",
+  "SignupModal.footer.button.login.hint": "Already have an account?",
+  "SignupModal.footer.button.login.label": "Log In"
 }
