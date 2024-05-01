@@ -2,6 +2,9 @@
   "ScreenLayout.navbar.logo.name": "Trip Craft",
   "ScreenLayout.navbar.button.signup.label": "Sign Up",
   "ScreenLayout.navbar.button.login.label": "Log In",
+  "ScreenLayout.navbar.locale.en.label": "English",
+  "ScreenLayout.navbar.locale.zhHant.label": "中文（繁體）",
+  "ScreenLayout.navbar.locale.zhHans.label": "中文（简体）",
 
   "LoginModal.header": "Welcome!",
   "LoginModal.body.input.email.label": "Email",
