@@ -93,6 +93,7 @@ const ScreenLayout: React.FC<PropsWithChildren> = (props) => {
       <Navbar
         className="border-b-1 border-black"
         onMenuOpenChange={setIsNavMenuOpen}
+        classNames={{ wrapper: "max-w-full" }}
       >
         <NavbarContent>
           <NavbarMenuToggle
