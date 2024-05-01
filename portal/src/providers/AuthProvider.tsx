@@ -2,7 +2,6 @@ import React, {
   PropsWithChildren,
   createContext,
   useCallback,
-  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -34,12 +33,9 @@ export const AuthContext = createContext<AuthContextValue>({
 });
 
 const AuthProvider: React.FC<PropsWithChildren> = (props) => {
-  const [accessToken, setAccessToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    const token = window.localStorage.getItem("accessToken");
-    setAccessToken(token);
-  }, []);
+  const [accessToken, setAccessToken] = useState<string | null>(
+    window.localStorage.getItem("accessToken"),
+  );
 
   const authenticate = useCallback((token: string) => {
     window.localStorage.setItem("accessToken", token);
