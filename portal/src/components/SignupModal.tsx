@@ -101,7 +101,12 @@ const SignupModal: React.FC<SignupModalProps> = (props) => {
   }, [password, passwordConfirm]);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} onOpenChange={onOpenChange}>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      onOpenChange={onOpenChange}
+      placement="center"
+    >
       <ModalContent>
         <ModalHeader>{t("SignupModal.header")}</ModalHeader>
         <form onSubmit={handleSubmit(onValidSubmit)}>

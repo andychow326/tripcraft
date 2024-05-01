@@ -75,7 +75,12 @@ const LoginModal: React.FC<LoginModalProps> = (props) => {
   }, [isOpen, reset]);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} onOpenChange={onOpenChange}>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      onOpenChange={onOpenChange}
+      placement="center"
+    >
       <ModalContent>
         <ModalHeader>{t("LoginModal.header")}</ModalHeader>
         <form onSubmit={handleSubmit(onValidSubmit)}>
