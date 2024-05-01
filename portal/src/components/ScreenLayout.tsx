@@ -17,13 +17,15 @@ import {
   NavbarMenuToggle,
   Select,
   SelectItem,
+  SelectSection,
   Selection,
 } from "@nextui-org/react";
 import { useTranslation } from "react-i18next";
 import { AppModalContext } from "../providers/AppModalProvider";
 import { AppLocaleContext } from "../providers/AppLocaleProvider";
 import { Locale } from "../i18n/locale";
-import { IconWorld } from "@tabler/icons-react";
+import { IconLogout, IconUserFilled, IconWorld } from "@tabler/icons-react";
+import { AuthContext } from "../providers/AuthProvider";
 
 interface LocaleSelectorProps {
   className?: string;
@@ -63,6 +65,7 @@ const ScreenLayout: React.FC<PropsWithChildren> = (props) => {
   const { t } = useTranslation();
   const { onOpenLoginModal, onOpenSignupModal } = useContext(AppModalContext);
   const { locale, changeLocale } = useContext(AppLocaleContext);
+  const auth = useContext(AuthContext);
 
   const localeOptions = useMemo(
     () =>
@@ -111,26 +114,60 @@ const ScreenLayout: React.FC<PropsWithChildren> = (props) => {
               onSelectionChange={onSelectionChangeLocale}
             />
           </NavbarItem>
-          <NavbarItem>
-            <Button
-              as={Link}
-              color="secondary"
-              variant="light"
-              onPress={onOpenSignupModal}
+          {auth.isAuthenticated ? (
+            <Select
+              className="w-40 sm:w-60"
+              aria-label="Account"
+              labelPlacement="outside-left"
+              selectionMode="single"
+              selectedKeys={[auth.user.name]}
+              disabledKeys={[auth.user.name]}
+              startContent={<IconUserFilled />}
             >
-              {t("ScreenLayout.navbar.button.signup.label")}
-            </Button>
-          </NavbarItem>
-          <NavbarItem>
-            <Button
-              color="primary"
-              href="#"
-              variant="flat"
-              onPress={onOpenLoginModal}
-            >
-              {t("ScreenLayout.navbar.button.login.label")}
-            </Button>
-          </NavbarItem>
+              <SelectSection
+                title={t("ScreenLayout.navbar.account.section.profile.title")}
+              >
+                <SelectItem
+                  key={auth.user.name}
+                  value={auth.user.name}
+                  selectedIcon={<></>}
+                >
+                  {auth.user.name}
+                </SelectItem>
+              </SelectSection>
+              <SelectItem
+                key="logout"
+                className=" text-red-600"
+                startContent={<IconLogout className="w-4 h-4" />}
+                onPress={auth.logout}
+              >
+                {t("ScreenLayout.navbar.account.section.action.logout")}
+              </SelectItem>
+            </Select>
+          ) : (
+            <>
+              <NavbarItem>
+                <Button
+                  as={Link}
+                  color="secondary"
+                  variant="light"
+                  onPress={onOpenSignupModal}
+                >
+                  {t("ScreenLayout.navbar.button.signup.label")}
+                </Button>
+              </NavbarItem>
+              <NavbarItem>
+                <Button
+                  color="primary"
+                  href="#"
+                  variant="flat"
+                  onPress={onOpenLoginModal}
+                >
+                  {t("ScreenLayout.navbar.button.login.label")}
+                </Button>
+              </NavbarItem>
+            </>
+          )}
         </NavbarContent>
         <NavbarMenu>
           <NavbarMenuItem>
