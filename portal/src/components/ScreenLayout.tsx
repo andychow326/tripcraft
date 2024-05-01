@@ -24,7 +24,7 @@ const ScreenLayout: React.FC<PropsWithChildren> = (props) => {
           </p>
         </NavbarBrand>
         <NavbarContent justify="end">
-          <NavbarItem className="hidden lg:flex">
+          <NavbarItem>
             <Button
               as={Link}
               color="secondary"
