@@ -17,7 +17,7 @@ const ScreenLayout: React.FC<PropsWithChildren> = (props) => {
 
   return (
     <div className="flex flex-col w-full h-full">
-      <Navbar>
+      <Navbar className="border-b-1 border-black">
         <NavbarBrand>
           <p className="font-bold text-inherit">
             {t("ScreenLayout.navbar.logo.name")}
