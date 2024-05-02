@@ -13,6 +13,7 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
       - ./database/docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh
+      - ./countries-states-cities-database/psql/world.sql:/docker-entrypoint-initdb.d/world.sql
 
   server:
     build:
