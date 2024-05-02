@@ -1,6 +1,7 @@
 interface AppRoute {
   path: string;
-  render?: (...args: unknown[]) => string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  render?: (...args: any[]) => string;
 }
 
 const asAppRouteTypes = <T extends { [K in keyof T]: AppRoute }>(et: T): T =>
