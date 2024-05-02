@@ -33,7 +33,7 @@ const AppLocaleProvider: React.FC<PropsWithChildren> = (props) => {
     i18next
       .changeLanguage(newLocale, () => {
         setLocale(value);
-        window.localStorage.setItem("locale", newLocale);
+        window.localStorage.setItem("locale", value);
       })
       .catch(console.error);
   }, []);

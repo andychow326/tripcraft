@@ -33,6 +33,7 @@ interface LocaleSelectorProps {
   onSelectionChange: (key: Selection) => void;
   localeOptions: {
     label: string;
+    key: string;
     value: string;
   }[];
 }
@@ -51,7 +52,7 @@ const LocaleSelector: React.FC<LocaleSelectorProps> = (props) => {
       onSelectionChange={onSelectionChange}
     >
       {localeOptions.map((option) => (
-        <SelectItem key={option.value} value={option.value}>
+        <SelectItem key={option.key} value={option.value}>
           {option.label}
         </SelectItem>
       ))}
@@ -69,9 +70,10 @@ const ScreenLayout: React.FC<PropsWithChildren> = (props) => {
 
   const localeOptions = useMemo(
     () =>
-      Object.keys(Locale).map((locale) => ({
-        label: t(`ScreenLayout.navbar.locale.${locale}.label`),
-        value: locale,
+      Object.entries(Locale).map(([key, value]) => ({
+        label: t(`ScreenLayout.navbar.locale.${key}.label`),
+        key: key,
+        value: value,
       })),
     [t],
   );
