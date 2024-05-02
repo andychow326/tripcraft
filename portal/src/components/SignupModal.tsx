@@ -38,13 +38,16 @@ const SignupFormSchema = z
 type SignupFormValues = z.infer<typeof SignupFormSchema>;
 
 interface SignupModalProps {
+  isDismissable?: boolean;
+  hideCloseButton?: boolean;
   isOpen: boolean;
   onClose: () => void;
   onOpenChange: () => void;
 }
 
 const SignupModal: React.FC<SignupModalProps> = (props) => {
-  const { isOpen, onClose, onOpenChange } = props;
+  const { isDismissable, hideCloseButton, isOpen, onClose, onOpenChange } =
+    props;
   const { t } = useTranslation();
   const [isVisiblePassword, setIsVisiblePassword] = useState<boolean>(false);
   const [isCorrectPasswordConfirm, setIsCorrectVisiblePasswordConfirm] =
@@ -102,6 +105,8 @@ const SignupModal: React.FC<SignupModalProps> = (props) => {
 
   return (
     <Modal
+      isDismissable={isDismissable}
+      hideCloseButton={hideCloseButton}
       isOpen={isOpen}
       onClose={onClose}
       onOpenChange={onOpenChange}

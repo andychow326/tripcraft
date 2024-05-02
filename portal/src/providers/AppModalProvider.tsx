@@ -1,16 +1,27 @@
 import { useDisclosure } from "@nextui-org/react";
-import React, { PropsWithChildren, createContext, useMemo } from "react";
+import React, {
+  PropsWithChildren,
+  createContext,
+  useCallback,
+  useMemo,
+  useState,
+} from "react";
 import LoginModal from "../components/LoginModal";
 import SignupModal from "../components/SignupModal";
 
+interface OpenModalOptions {
+  isDismissable: boolean;
+  hideCloseButton: boolean;
+}
+
 interface AppModalContextValue {
   isOpenLoginModal: boolean;
-  onOpenLoginModal: () => void;
+  onOpenLoginModal: (options?: OpenModalOptions) => void;
   onCloseLoginModal: () => void;
   onOpenChangeLoginModal: () => void;
   isOpenSignupModal: boolean;
   onCloseSignupModal: () => void;
-  onOpenSignupModal: () => void;
+  onOpenSignupModal: (options?: OpenModalOptions) => void;
   onOpenChangeSignupModal: () => void;
 }
 
@@ -27,6 +38,12 @@ export const AppModalContext = createContext<AppModalContextValue>({
 
 const AppModalProvider: React.FC<PropsWithChildren> = (props) => {
   const { children } = props;
+  const [openLoginModalOptions, setOpenLoginModalOptions] = useState<
+    OpenModalOptions | undefined
+  >();
+  const [openSignupModalOptions, setOpenSignupModalOptions] = useState<
+    OpenModalOptions | undefined
+  >();
   const {
     isOpen: isOpenLoginModal,
     onOpen: onOpenLoginModal,
@@ -40,25 +57,41 @@ const AppModalProvider: React.FC<PropsWithChildren> = (props) => {
     onOpenChange: onOpenChangeSignupModal,
   } = useDisclosure();
 
+  const _onOpenLoginModal = useCallback(
+    (options?: OpenModalOptions) => {
+      setOpenLoginModalOptions(options);
+      onOpenLoginModal();
+    },
+    [onOpenLoginModal],
+  );
+
+  const _onOpenSignupModal = useCallback(
+    (options?: OpenModalOptions) => {
+      setOpenSignupModalOptions(options);
+      onOpenSignupModal();
+    },
+    [onOpenSignupModal],
+  );
+
   const contextValue = useMemo<AppModalContextValue>(
     () => ({
       isOpenLoginModal: isOpenLoginModal,
-      onOpenLoginModal: onOpenLoginModal,
+      onOpenLoginModal: _onOpenLoginModal,
       onCloseLoginModal: onCloseLoginModal,
       onOpenChangeLoginModal: onOpenChangeLoginModal,
       isOpenSignupModal: isOpenSignupModal,
-      onOpenSignupModal: onOpenSignupModal,
+      onOpenSignupModal: _onOpenSignupModal,
       onCloseSignupModal: onCloseSignupModal,
       onOpenChangeSignupModal: onOpenChangeSignupModal,
     }),
     [
       isOpenLoginModal,
-      onOpenLoginModal,
+      _onOpenLoginModal,
       onCloseLoginModal,
       onOpenChangeLoginModal,
       isOpenSignupModal,
       onCloseSignupModal,
-      onOpenSignupModal,
+      _onOpenSignupModal,
       onOpenChangeSignupModal,
     ],
   );
@@ -66,11 +99,15 @@ const AppModalProvider: React.FC<PropsWithChildren> = (props) => {
   return (
     <AppModalContext.Provider value={contextValue}>
       <LoginModal
+        isDismissable={openLoginModalOptions?.isDismissable}
+        hideCloseButton={openLoginModalOptions?.hideCloseButton}
         isOpen={isOpenLoginModal}
         onClose={onCloseLoginModal}
         onOpenChange={onOpenChangeLoginModal}
       />
       <SignupModal
+        isDismissable={openSignupModalOptions?.isDismissable}
+        hideCloseButton={openSignupModalOptions?.hideCloseButton}
         isOpen={isOpenSignupModal}
         onClose={onCloseSignupModal}
         onOpenChange={onOpenChangeSignupModal}

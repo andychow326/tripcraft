@@ -26,13 +26,16 @@ const LoginFormSchema = z.object({
 type LoginFormValues = z.infer<typeof LoginFormSchema>;
 
 interface LoginModalProps {
+  isDismissable?: boolean;
+  hideCloseButton?: boolean;
   isOpen: boolean;
   onClose: () => void;
   onOpenChange: () => void;
 }
 
 const LoginModal: React.FC<LoginModalProps> = (props) => {
-  const { isOpen, onClose, onOpenChange } = props;
+  const { isDismissable, hideCloseButton, isOpen, onClose, onOpenChange } =
+    props;
   const { t } = useTranslation();
   const [isVisiblePassword, setIsVisiblePassword] = useState<boolean>(false);
   const { onOpenSignupModal } = useContext(AppModalContext);
@@ -76,6 +79,8 @@ const LoginModal: React.FC<LoginModalProps> = (props) => {
 
   return (
     <Modal
+      isDismissable={isDismissable}
+      hideCloseButton={hideCloseButton}
       isOpen={isOpen}
       onClose={onClose}
       onOpenChange={onOpenChange}
