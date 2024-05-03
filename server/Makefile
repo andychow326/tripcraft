@@ -10,7 +10,7 @@ setup:
 
 .PHONY: create-migration
 create-migration:
-	docker compose run --rm server poetry run alembic revision --autogenerate -m "$(NAME)"
+	docker compose run --rm server poetry run alembic revision -m "$(NAME)"
 
 .PHONY: upgrade-db
 upgrade-db:
