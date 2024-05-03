@@ -21,7 +21,7 @@ class BaseQuery(object):
         self.Model = model
 
     @property
-    def query(self):
+    def query(self) -> sa.Select[Any]:
         return sa.select(self.Model)
 
     def _all_without_unique(self, query: sa.Select[Any]) -> Sequence[T]:
