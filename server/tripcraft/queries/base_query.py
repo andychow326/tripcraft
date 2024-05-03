@@ -4,6 +4,8 @@ from typing import Any, List, Optional, Sequence, TypeVar
 import sqlalchemy as sa
 from sqlalchemy.orm import Session
 
+from tripcraft.schemas import Pagination
+
 T = TypeVar("T")
 
 logger = logging.getLogger(__name__)
@@ -39,3 +41,9 @@ class BaseQuery(object):
         query = self.query.where(self.Model.id.in_(ids))
         result = self._all(query)
         return result
+
+    def _paginate(self, pagination: Pagination, query: sa.Select[Any]):
+        _query = query.offset(pagination.page_index * pagination.page_size).limit(
+            pagination.page_size
+        )
+        return _query
