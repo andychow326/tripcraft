@@ -83,9 +83,13 @@ def map_city(city: City) -> CitySchema:
 )
 def _world_region(
     world_query: Annotated[WorldQuery, Depends(with_world_query())],
+    name: Annotated[Optional[str], Query(alias="name")] = None,
     id: Annotated[Optional[int], Query(alias="id")] = None,
 ):
-    regions = world_query.region.get_all(region_id=id)
+    if name is not None:
+        regions = world_query.region.get_by_name(name=name)
+    else:
+        regions = world_query.region.get_all(region_id=id)
     return RegionResponse(results=list(map(map_region, regions)))
 
 
@@ -96,13 +100,17 @@ def _world_region(
 )
 def _world_sub_region(
     world_query: Annotated[WorldQuery, Depends(with_world_query())],
+    name: Annotated[Optional[str], Query(alias="name")] = None,
     id: Annotated[Optional[int], Query(alias="id")] = None,
     region_id: Annotated[Optional[int], Query(alias="regionId")] = None,
 ):
-    sub_regions = world_query.sub_region.get_all(
-        sub_region_id=id,
-        region_id=region_id,
-    )
+    if name is not None:
+        sub_regions = world_query.sub_region.get_by_name(name)
+    else:
+        sub_regions = world_query.sub_region.get_all(
+            sub_region_id=id,
+            region_id=region_id,
+        )
     return SubRegionResponse(results=list(map(map_sub_region, sub_regions)))
 
 
@@ -114,22 +122,30 @@ def _world_sub_region(
 def _world_country(
     pagination: Annotated[PaginationParams, Depends(with_pagination_params)],
     world_query: Annotated[WorldQuery, Depends(with_world_query())],
+    name: Annotated[Optional[str], Query(alias="name")] = None,
     id: Annotated[Optional[int], Query(alias="id")] = None,
     sub_region_id: Annotated[Optional[int], Query(alias="subRegionId")] = None,
     region_id: Annotated[Optional[int], Query(alias="regionId")] = None,
 ):
     pagination_object = Pagination.from_query_params(params=pagination)
-    countries = world_query.country.get_all(
-        pagination=pagination_object,
-        country_id=id,
-        sub_region_id=sub_region_id,
-        region_id=region_id,
-    )
-    pagination_object.total_count = world_query.country.count(
-        country_id=id,
-        sub_region_id=sub_region_id,
-        region_id=region_id,
-    )
+    if name is not None:
+        countries = world_query.country.get_by_name(
+            pagination=pagination_object,
+            name=name,
+        )
+        pagination_object.total_count = world_query.country.count_by_name(name=name)
+    else:
+        countries = world_query.country.get_all(
+            pagination=pagination_object,
+            country_id=id,
+            sub_region_id=sub_region_id,
+            region_id=region_id,
+        )
+        pagination_object.total_count = world_query.country.count(
+            country_id=id,
+            sub_region_id=sub_region_id,
+            region_id=region_id,
+        )
 
     return CountryResponse(
         total_count=pagination_object.total_count or 0,
@@ -146,19 +162,27 @@ def _world_country(
 def _world_state(
     pagination: Annotated[PaginationParams, Depends(with_pagination_params)],
     world_query: Annotated[WorldQuery, Depends(with_world_query())],
+    name: Annotated[Optional[str], Query(alias="name")] = None,
     id: Annotated[Optional[int], Query(alias="id")] = None,
     country_id: Annotated[Optional[int], Query(alias="countryId")] = None,
 ):
     pagination_object = Pagination.from_query_params(params=pagination)
-    states = world_query.state.get_all(
-        pagination=pagination_object,
-        state_id=id,
-        country_id=country_id,
-    )
-    pagination_object.total_count = world_query.state.count(
-        state_id=id,
-        country_id=country_id,
-    )
+    if name is not None:
+        states = world_query.state.get_by_name(
+            pagination=pagination_object,
+            name=name,
+        )
+        pagination_object.total_count = world_query.state.count_by_name(name=name)
+    else:
+        states = world_query.state.get_all(
+            pagination=pagination_object,
+            state_id=id,
+            country_id=country_id,
+        )
+        pagination_object.total_count = world_query.state.count(
+            state_id=id,
+            country_id=country_id,
+        )
 
     return StateResponse(
         total_count=pagination_object.total_count or 0,
@@ -175,22 +199,30 @@ def _world_state(
 def _world_city(
     pagination: Annotated[PaginationParams, Depends(with_pagination_params)],
     world_query: Annotated[WorldQuery, Depends(with_world_query())],
+    name: Annotated[Optional[str], Query(alias="name")] = None,
     id: Annotated[Optional[int], Query(alias="id")] = None,
     state_id: Annotated[Optional[int], Query(alias="stateId")] = None,
     country_id: Annotated[Optional[int], Query(alias="countryId")] = None,
 ):
     pagination_object = Pagination.from_query_params(params=pagination)
-    cities = world_query.city.get_all(
-        pagination=pagination_object,
-        city_id=id,
-        state_id=state_id,
-        country_id=country_id,
-    )
-    pagination_object.total_count = world_query.city.count(
-        city_id=id,
-        state_id=state_id,
-        country_id=country_id,
-    )
+    if name is not None:
+        cities = world_query.city.get_by_name(
+            pagination=pagination_object,
+            name=name,
+        )
+        pagination_object.total_count = world_query.city.count_by_name(name=name)
+    else:
+        cities = world_query.city.get_all(
+            pagination=pagination_object,
+            city_id=id,
+            state_id=state_id,
+            country_id=country_id,
+        )
+        pagination_object.total_count = world_query.city.count(
+            city_id=id,
+            state_id=state_id,
+            country_id=country_id,
+        )
 
     return CityResponse(
         total_count=pagination_object.total_count or 0,

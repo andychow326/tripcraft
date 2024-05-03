@@ -23,6 +23,12 @@ class RegionQuery(BaseQuery):
 
         return self._all(_query)
 
+    def get_by_name(self, name: str) -> Sequence[Region]:
+        _query = self.query.from_statement(
+            sa.sql.text("SELECT * FROM regions WHERE regions ==> :name"),
+        ).params(name=f"{name}*")
+        return self._all(_query)
+
 
 class SubRegionQuery(BaseQuery):
     def __init__(self, session: Session) -> None:
@@ -41,6 +47,12 @@ class SubRegionQuery(BaseQuery):
         if region_id is not None:
             _query = _query.where(SubRegion.region_id == region_id)
 
+        return self._all(_query)
+
+    def get_by_name(self, name: str) -> Sequence[SubRegion]:
+        _query = self.query.from_statement(
+            sa.sql.text("SELECT * FROM subregions WHERE subregions ==> :name"),
+        ).params(name=f"{name}*")
         return self._all(_query)
 
 
@@ -71,6 +83,20 @@ class CountryQuery(BaseQuery):
 
         return self._all(_query)
 
+    def get_by_name(
+        self,
+        name: str,
+        pagination: Optional[Pagination] = None,
+    ) -> Sequence[Country]:
+        _query = self.query.from_statement(
+            sa.sql.text(
+                "SELECT * FROM countries WHERE countries ==> :name "
+                f"OFFSET {pagination.page_index * pagination.page_size} "
+                f"LIMIT {pagination.page_size}"
+            ),
+        ).params(name=f"{name}*")
+        return self._all(_query)
+
     def count(
         self,
         country_id: Optional[int] = None,
@@ -89,6 +115,13 @@ class CountryQuery(BaseQuery):
             _query = _query.where(Country.region_id == sub_region_id)
 
         count_result = self.session.execute(_query)
+        return count_result.scalar_one()
+
+    def count_by_name(self, name: str):
+        count_result = self.session.execute(
+            sa.sql.text("SELECT COUNT(*) FROM countries WHERE countries ==> :name"),
+            {"name": f"{name}*"},
+        )
         return count_result.scalar_one()
 
 
@@ -115,6 +148,20 @@ class StateQuery(BaseQuery):
 
         return self._all(_query)
 
+    def get_by_name(
+        self,
+        name: str,
+        pagination: Optional[Pagination] = None,
+    ) -> Sequence[State]:
+        _query = self.query.from_statement(
+            sa.sql.text(
+                "SELECT * FROM states WHERE states ==> :name "
+                f"OFFSET {pagination.page_index * pagination.page_size} "
+                f"LIMIT {pagination.page_size}"
+            ),
+        ).params(name=f"{name}*")
+        return self._all(_query)
+
     def count(
         self,
         state_id: Optional[int] = None,
@@ -129,6 +176,13 @@ class StateQuery(BaseQuery):
             _query = _query.where(State.country_id == country_id)
 
         count_result = self.session.execute(_query)
+        return count_result.scalar_one()
+
+    def count_by_name(self, name: str):
+        count_result = self.session.execute(
+            sa.sql.text("SELECT COUNT(*) FROM states WHERE states ==> :name"),
+            {"name": f"{name}*"},
+        )
         return count_result.scalar_one()
 
 
@@ -159,6 +213,20 @@ class CityQuery(BaseQuery):
 
         return self._all(_query)
 
+    def get_by_name(
+        self,
+        name: str,
+        pagination: Optional[Pagination] = None,
+    ) -> Sequence[City]:
+        _query = self.query.from_statement(
+            sa.sql.text(
+                "SELECT * FROM cities WHERE cities ==> :name "
+                f"OFFSET {pagination.page_index * pagination.page_size} "
+                f"LIMIT {pagination.page_size}"
+            ),
+        ).params(name=f"{name}*")
+        return self._all(_query)
+
     def count(
         self,
         city_id: Optional[int] = None,
@@ -177,6 +245,13 @@ class CityQuery(BaseQuery):
             _query = _query.where(City.country_id == country_id)
 
         count_result = self.session.execute(_query)
+        return count_result.scalar_one()
+
+    def count_by_name(self, name: str):
+        count_result = self.session.execute(
+            sa.sql.text("SELECT COUNT(*) FROM cities WHERE cities ==> :name"),
+            {"name": f"{name}*"},
+        )
         return count_result.scalar_one()
 
 
