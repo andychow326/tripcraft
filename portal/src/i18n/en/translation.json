@@ -34,6 +34,7 @@
 
   "HomeScreen.campaign.header": "Start planning your trip!",
   "HomeScreen.campaign.content": "Discover countries and cities around the world!\nSeek for your destination!",
+  "HomeScreen.campaign.button.start_planning": "Plan My Trip Now!",
   "HomeScreen.explore.header": "EXPLORE",
   "HomeScreen.explore.popular.header": "Popular Destinations",
 
