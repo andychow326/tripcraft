@@ -11,6 +11,10 @@ const AppRoutes = asAppRouteTypes(
   Object.freeze({
     HomeScreen: { path: "/" },
     PlanCreateScreen: { path: "/path/create" },
+    PlanEditScreen: {
+      path: "/path/edit/:planId",
+      render: (planId: string) => `/path/edit/${planId}`,
+    },
   }),
 );
 
