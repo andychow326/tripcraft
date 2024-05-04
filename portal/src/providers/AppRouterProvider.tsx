@@ -3,6 +3,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ScreenLayout from "../components/ScreenLayout";
 import HomeScreen from "../screens/HomeScreen";
 import AppRoutes from "../AppRoutes";
+import ProtectedScreenLayout from "../components/ProtectedScreenLayout";
+import PlanCreateScreen from "../screens/PlanCreateScreen";
 
 const router = createBrowserRouter([
   {
@@ -11,6 +13,14 @@ const router = createBrowserRouter([
       <ScreenLayout>
         <HomeScreen />
       </ScreenLayout>
+    ),
+  },
+  {
+    path: AppRoutes.PlanCreateScreen.path,
+    element: (
+      <ProtectedScreenLayout>
+        <PlanCreateScreen />
+      </ProtectedScreenLayout>
     ),
   },
 ]);

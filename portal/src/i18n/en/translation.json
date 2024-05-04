@@ -35,5 +35,13 @@
   "HomeScreen.campaign.header": "Start planning your trip!",
   "HomeScreen.campaign.content": "Discover countries and cities around the world!\nSeek for your destination!",
   "HomeScreen.explore.header": "EXPLORE",
-  "HomeScreen.explore.popular.header": "Popular Destinations"
+  "HomeScreen.explore.popular.header": "Popular Destinations",
+
+  "PlanCreateScreen.header": "Create a New Plan",
+  "PlanCreateScreen.input.name.label": "Name",
+  "PlanCreateScreen.input.date.depart.label": "Depart",
+  "PlanCreateScreen.input.date.return.label": "Return",
+  "PlanCreateScreen.input.date.depart.placeholder": "Select Depart Date",
+  "PlanCreateScreen.input.date.return.placeholder": "Select Return Date",
+  "PlanCreateScreen.button.submit.label": "Submit"
 }
