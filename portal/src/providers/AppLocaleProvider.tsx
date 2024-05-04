@@ -7,6 +7,7 @@ import React, {
   useState,
 } from "react";
 import { I18nextProvider } from "react-i18next";
+import { I18nProvider } from "@react-aria/i18n";
 import i18next from "../i18n/i18n";
 import { Locale } from "../i18n/locale";
 
@@ -52,7 +53,11 @@ const AppLocaleProvider: React.FC<PropsWithChildren> = (props) => {
 
   return (
     <AppLocaleContext.Provider value={contextValue}>
-      <I18nextProvider i18n={i18next}>{children}</I18nextProvider>
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+      {/* @ts-expect-error */}
+      <I18nProvider locale={Locale[locale]}>
+        <I18nextProvider i18n={i18next}>{children}</I18nextProvider>
+      </I18nProvider>
     </AppLocaleContext.Provider>
   );
 };
