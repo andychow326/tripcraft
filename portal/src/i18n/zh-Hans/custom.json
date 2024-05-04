@@ -1,3 +1,4 @@
 {
-  "mismatch_passwords": "密码不匹配"
+  "mismatch_passwords": "密码不匹配",
+  "empty_date": "请选择日期"
 }
