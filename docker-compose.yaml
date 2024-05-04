@@ -1,8 +1,20 @@
 version: "3"
 
 services:
+  elasticsearch:
+    image: elasticsearch:7.17.21
+    restart: always
+    environment:
+      discovery.type: single-node
+    ports:
+      - 9200:9200
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+
   db:
-    image: postgres:15.3
+    build:
+      context: database
+      dockerfile: Dockerfile
     restart: always
     environment:
       POSTGRES_DB: tripcraft
@@ -25,6 +37,7 @@ services:
       - ./server/.env
     depends_on:
       - db
+      - elasticsearch
     volumes:
       - ./server:/usr/src/app
 
@@ -42,3 +55,4 @@ services:
 
 volumes:
   db_data:
+  es_data:

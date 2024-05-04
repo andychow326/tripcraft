@@ -7,6 +7,8 @@ ALLOW_ORIGINS = os.environ.get("ALLOW_ORIGINS", "").split(",")
 POSTGRES_URL = os.environ.get("POSTGRES_URL", "")
 POSTGRES_SCHEMA = os.environ.get("POSTGRES_SCHEMA", "")
 
+ELASTICSEARCH_URL = os.environ.get("ELASTICSEARCH_URL", "")
+
 REDIS_URL = os.environ.get("REDIS_URL", "")
 
 SMTP_HOST = os.environ.get("SMTP_HOST", "")
