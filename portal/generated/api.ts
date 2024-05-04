@@ -219,6 +219,107 @@ export interface LoginResponse {
 /**
  * 
  * @export
+ * @interface PlanConfigSchema
+ */
+export interface PlanConfigSchema {
+    /**
+     * 
+     * @type {string}
+     * @memberof PlanConfigSchema
+     */
+    'dateStart': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PlanConfigSchema
+     */
+    'dateEnd': string;
+}
+/**
+ * 
+ * @export
+ * @interface PlanMultipleResponse
+ */
+export interface PlanMultipleResponse {
+    /**
+     * 
+     * @type {Array<PlanSchema>}
+     * @memberof PlanMultipleResponse
+     */
+    'results': Array<PlanSchema>;
+}
+/**
+ * 
+ * @export
+ * @interface PlanRequest
+ */
+export interface PlanRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof PlanRequest
+     */
+    'name': string;
+    /**
+     * 
+     * @type {PlanConfigSchema}
+     * @memberof PlanRequest
+     */
+    'config': PlanConfigSchema;
+}
+/**
+ * 
+ * @export
+ * @interface PlanSchema
+ */
+export interface PlanSchema {
+    /**
+     * 
+     * @type {string}
+     * @memberof PlanSchema
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PlanSchema
+     */
+    'name': string;
+    /**
+     * 
+     * @type {PlanConfigSchema}
+     * @memberof PlanSchema
+     */
+    'config': PlanConfigSchema;
+}
+/**
+ * 
+ * @export
+ * @interface PlanSingleResponse
+ */
+export interface PlanSingleResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof PlanSingleResponse
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PlanSingleResponse
+     */
+    'name': string;
+    /**
+     * 
+     * @type {PlanConfigSchema}
+     * @memberof PlanSingleResponse
+     */
+    'config': PlanConfigSchema;
+}
+/**
+ * 
+ * @export
  * @interface RegionResponse
  */
 export interface RegionResponse {
@@ -664,6 +765,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @summary  World City
+         * @param {string | null} [name] 
          * @param {number | null} [id] 
          * @param {number | null} [stateId] 
          * @param {number | null} [countryId] 
@@ -672,7 +774,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        worldCityGet: async (id?: number | null, stateId?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        worldCityGet: async (name?: string | null, id?: number | null, stateId?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/world/city`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -684,6 +786,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
 
             if (id !== undefined) {
                 localVarQueryParameter['id'] = id;
@@ -719,6 +825,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @summary  World Country
+         * @param {string | null} [name] 
          * @param {number | null} [id] 
          * @param {number | null} [subRegionId] 
          * @param {number | null} [regionId] 
@@ -727,7 +834,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        worldCountryGet: async (id?: number | null, subRegionId?: number | null, regionId?: number | null, pageIndex?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        worldCountryGet: async (name?: string | null, id?: number | null, subRegionId?: number | null, regionId?: number | null, pageIndex?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/world/country`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -739,6 +846,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
 
             if (id !== undefined) {
                 localVarQueryParameter['id'] = id;
@@ -774,11 +885,12 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @summary  World Region
+         * @param {string | null} [name] 
          * @param {number | null} [id] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        worldRegionGet: async (id?: number | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        worldRegionGet: async (name?: string | null, id?: number | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/world/region`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -790,6 +902,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
 
             if (id !== undefined) {
                 localVarQueryParameter['id'] = id;
@@ -809,6 +925,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @summary  World State
+         * @param {string | null} [name] 
          * @param {number | null} [id] 
          * @param {number | null} [countryId] 
          * @param {number} [pageIndex] 
@@ -816,7 +933,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        worldStateGet: async (id?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        worldStateGet: async (name?: string | null, id?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/world/state`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -828,6 +945,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
 
             if (id !== undefined) {
                 localVarQueryParameter['id'] = id;
@@ -859,12 +980,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @summary  World Sub Region
+         * @param {string | null} [name] 
          * @param {number | null} [id] 
          * @param {number | null} [regionId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        worldSubRegionGet: async (id?: number | null, regionId?: number | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        worldSubRegionGet: async (name?: string | null, id?: number | null, regionId?: number | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/world/sub_region`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -876,6 +998,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
 
             if (id !== undefined) {
                 localVarQueryParameter['id'] = id;
@@ -921,6 +1047,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary  World City
+         * @param {string | null} [name] 
          * @param {number | null} [id] 
          * @param {number | null} [stateId] 
          * @param {number | null} [countryId] 
@@ -929,8 +1056,8 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async worldCityGet(id?: number | null, stateId?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CityResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.worldCityGet(id, stateId, countryId, pageIndex, pageSize, options);
+        async worldCityGet(name?: string | null, id?: number | null, stateId?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CityResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.worldCityGet(name, id, stateId, countryId, pageIndex, pageSize, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DefaultApi.worldCityGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -938,6 +1065,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary  World Country
+         * @param {string | null} [name] 
          * @param {number | null} [id] 
          * @param {number | null} [subRegionId] 
          * @param {number | null} [regionId] 
@@ -946,8 +1074,8 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async worldCountryGet(id?: number | null, subRegionId?: number | null, regionId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CountryResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.worldCountryGet(id, subRegionId, regionId, pageIndex, pageSize, options);
+        async worldCountryGet(name?: string | null, id?: number | null, subRegionId?: number | null, regionId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CountryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.worldCountryGet(name, id, subRegionId, regionId, pageIndex, pageSize, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DefaultApi.worldCountryGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -955,12 +1083,13 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary  World Region
+         * @param {string | null} [name] 
          * @param {number | null} [id] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async worldRegionGet(id?: number | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RegionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.worldRegionGet(id, options);
+        async worldRegionGet(name?: string | null, id?: number | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RegionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.worldRegionGet(name, id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DefaultApi.worldRegionGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -968,6 +1097,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary  World State
+         * @param {string | null} [name] 
          * @param {number | null} [id] 
          * @param {number | null} [countryId] 
          * @param {number} [pageIndex] 
@@ -975,8 +1105,8 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async worldStateGet(id?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StateResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.worldStateGet(id, countryId, pageIndex, pageSize, options);
+        async worldStateGet(name?: string | null, id?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StateResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.worldStateGet(name, id, countryId, pageIndex, pageSize, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DefaultApi.worldStateGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -984,13 +1114,14 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary  World Sub Region
+         * @param {string | null} [name] 
          * @param {number | null} [id] 
          * @param {number | null} [regionId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async worldSubRegionGet(id?: number | null, regionId?: number | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SubRegionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.worldSubRegionGet(id, regionId, options);
+        async worldSubRegionGet(name?: string | null, id?: number | null, regionId?: number | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SubRegionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.worldSubRegionGet(name, id, regionId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DefaultApi.worldSubRegionGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -1017,6 +1148,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         /**
          * 
          * @summary  World City
+         * @param {string | null} [name] 
          * @param {number | null} [id] 
          * @param {number | null} [stateId] 
          * @param {number | null} [countryId] 
@@ -1025,12 +1157,13 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        worldCityGet(id?: number | null, stateId?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: any): AxiosPromise<CityResponse> {
-            return localVarFp.worldCityGet(id, stateId, countryId, pageIndex, pageSize, options).then((request) => request(axios, basePath));
+        worldCityGet(name?: string | null, id?: number | null, stateId?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: any): AxiosPromise<CityResponse> {
+            return localVarFp.worldCityGet(name, id, stateId, countryId, pageIndex, pageSize, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary  World Country
+         * @param {string | null} [name] 
          * @param {number | null} [id] 
          * @param {number | null} [subRegionId] 
          * @param {number | null} [regionId] 
@@ -1039,22 +1172,24 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        worldCountryGet(id?: number | null, subRegionId?: number | null, regionId?: number | null, pageIndex?: number, pageSize?: number, options?: any): AxiosPromise<CountryResponse> {
-            return localVarFp.worldCountryGet(id, subRegionId, regionId, pageIndex, pageSize, options).then((request) => request(axios, basePath));
+        worldCountryGet(name?: string | null, id?: number | null, subRegionId?: number | null, regionId?: number | null, pageIndex?: number, pageSize?: number, options?: any): AxiosPromise<CountryResponse> {
+            return localVarFp.worldCountryGet(name, id, subRegionId, regionId, pageIndex, pageSize, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary  World Region
+         * @param {string | null} [name] 
          * @param {number | null} [id] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        worldRegionGet(id?: number | null, options?: any): AxiosPromise<RegionResponse> {
-            return localVarFp.worldRegionGet(id, options).then((request) => request(axios, basePath));
+        worldRegionGet(name?: string | null, id?: number | null, options?: any): AxiosPromise<RegionResponse> {
+            return localVarFp.worldRegionGet(name, id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary  World State
+         * @param {string | null} [name] 
          * @param {number | null} [id] 
          * @param {number | null} [countryId] 
          * @param {number} [pageIndex] 
@@ -1062,19 +1197,20 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        worldStateGet(id?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: any): AxiosPromise<StateResponse> {
-            return localVarFp.worldStateGet(id, countryId, pageIndex, pageSize, options).then((request) => request(axios, basePath));
+        worldStateGet(name?: string | null, id?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: any): AxiosPromise<StateResponse> {
+            return localVarFp.worldStateGet(name, id, countryId, pageIndex, pageSize, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary  World Sub Region
+         * @param {string | null} [name] 
          * @param {number | null} [id] 
          * @param {number | null} [regionId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        worldSubRegionGet(id?: number | null, regionId?: number | null, options?: any): AxiosPromise<SubRegionResponse> {
-            return localVarFp.worldSubRegionGet(id, regionId, options).then((request) => request(axios, basePath));
+        worldSubRegionGet(name?: string | null, id?: number | null, regionId?: number | null, options?: any): AxiosPromise<SubRegionResponse> {
+            return localVarFp.worldSubRegionGet(name, id, regionId, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1100,6 +1236,7 @@ export class DefaultApi extends BaseAPI {
     /**
      * 
      * @summary  World City
+     * @param {string | null} [name] 
      * @param {number | null} [id] 
      * @param {number | null} [stateId] 
      * @param {number | null} [countryId] 
@@ -1109,13 +1246,14 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public worldCityGet(id?: number | null, stateId?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).worldCityGet(id, stateId, countryId, pageIndex, pageSize, options).then((request) => request(this.axios, this.basePath));
+    public worldCityGet(name?: string | null, id?: number | null, stateId?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).worldCityGet(name, id, stateId, countryId, pageIndex, pageSize, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary  World Country
+     * @param {string | null} [name] 
      * @param {number | null} [id] 
      * @param {number | null} [subRegionId] 
      * @param {number | null} [regionId] 
@@ -1125,25 +1263,27 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public worldCountryGet(id?: number | null, subRegionId?: number | null, regionId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).worldCountryGet(id, subRegionId, regionId, pageIndex, pageSize, options).then((request) => request(this.axios, this.basePath));
+    public worldCountryGet(name?: string | null, id?: number | null, subRegionId?: number | null, regionId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).worldCountryGet(name, id, subRegionId, regionId, pageIndex, pageSize, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary  World Region
+     * @param {string | null} [name] 
      * @param {number | null} [id] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public worldRegionGet(id?: number | null, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).worldRegionGet(id, options).then((request) => request(this.axios, this.basePath));
+    public worldRegionGet(name?: string | null, id?: number | null, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).worldRegionGet(name, id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary  World State
+     * @param {string | null} [name] 
      * @param {number | null} [id] 
      * @param {number | null} [countryId] 
      * @param {number} [pageIndex] 
@@ -1152,21 +1292,410 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public worldStateGet(id?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).worldStateGet(id, countryId, pageIndex, pageSize, options).then((request) => request(this.axios, this.basePath));
+    public worldStateGet(name?: string | null, id?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).worldStateGet(name, id, countryId, pageIndex, pageSize, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary  World Sub Region
+     * @param {string | null} [name] 
      * @param {number | null} [id] 
      * @param {number | null} [regionId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public worldSubRegionGet(id?: number | null, regionId?: number | null, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).worldSubRegionGet(id, regionId, options).then((request) => request(this.axios, this.basePath));
+    public worldSubRegionGet(name?: string | null, id?: number | null, regionId?: number | null, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).worldSubRegionGet(name, id, regionId, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * PlanApi - axios parameter creator
+ * @export
+ */
+export const PlanApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary  Plan
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        planGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/plan`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary  Plan
+         * @param {string} planId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        planIdDelete: async (planId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'planId' is not null or undefined
+            assertParamExists('planIdDelete', 'planId', planId)
+            const localVarPath = `/plan/{plan_id}`
+                .replace(`{${"plan_id"}}`, encodeURIComponent(String(planId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary  Plan
+         * @param {string} planId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        planIdGet: async (planId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'planId' is not null or undefined
+            assertParamExists('planIdGet', 'planId', planId)
+            const localVarPath = `/plan/{plan_id}`
+                .replace(`{${"plan_id"}}`, encodeURIComponent(String(planId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary  Plan
+         * @param {string} planId 
+         * @param {PlanRequest} planRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        planIdPut: async (planId: string, planRequest: PlanRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'planId' is not null or undefined
+            assertParamExists('planIdPut', 'planId', planId)
+            // verify required parameter 'planRequest' is not null or undefined
+            assertParamExists('planIdPut', 'planRequest', planRequest)
+            const localVarPath = `/plan/{plan_id}`
+                .replace(`{${"plan_id"}}`, encodeURIComponent(String(planId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(planRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary  Plan
+         * @param {PlanRequest} planRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        planPost: async (planRequest: PlanRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'planRequest' is not null or undefined
+            assertParamExists('planPost', 'planRequest', planRequest)
+            const localVarPath = `/plan`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(planRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * PlanApi - functional programming interface
+ * @export
+ */
+export const PlanApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = PlanApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary  Plan
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async planGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PlanMultipleResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.planGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['PlanApi.planGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary  Plan
+         * @param {string} planId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async planIdDelete(planId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PlanMultipleResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.planIdDelete(planId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['PlanApi.planIdDelete']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary  Plan
+         * @param {string} planId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async planIdGet(planId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PlanSingleResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.planIdGet(planId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['PlanApi.planIdGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary  Plan
+         * @param {string} planId 
+         * @param {PlanRequest} planRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async planIdPut(planId: string, planRequest: PlanRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PlanSingleResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.planIdPut(planId, planRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['PlanApi.planIdPut']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary  Plan
+         * @param {PlanRequest} planRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async planPost(planRequest: PlanRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PlanSingleResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.planPost(planRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['PlanApi.planPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * PlanApi - factory interface
+ * @export
+ */
+export const PlanApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = PlanApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary  Plan
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        planGet(options?: any): AxiosPromise<PlanMultipleResponse> {
+            return localVarFp.planGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary  Plan
+         * @param {string} planId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        planIdDelete(planId: string, options?: any): AxiosPromise<PlanMultipleResponse> {
+            return localVarFp.planIdDelete(planId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary  Plan
+         * @param {string} planId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        planIdGet(planId: string, options?: any): AxiosPromise<PlanSingleResponse> {
+            return localVarFp.planIdGet(planId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary  Plan
+         * @param {string} planId 
+         * @param {PlanRequest} planRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        planIdPut(planId: string, planRequest: PlanRequest, options?: any): AxiosPromise<PlanSingleResponse> {
+            return localVarFp.planIdPut(planId, planRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary  Plan
+         * @param {PlanRequest} planRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        planPost(planRequest: PlanRequest, options?: any): AxiosPromise<PlanSingleResponse> {
+            return localVarFp.planPost(planRequest, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * PlanApi - object-oriented interface
+ * @export
+ * @class PlanApi
+ * @extends {BaseAPI}
+ */
+export class PlanApi extends BaseAPI {
+    /**
+     * 
+     * @summary  Plan
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PlanApi
+     */
+    public planGet(options?: RawAxiosRequestConfig) {
+        return PlanApiFp(this.configuration).planGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary  Plan
+     * @param {string} planId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PlanApi
+     */
+    public planIdDelete(planId: string, options?: RawAxiosRequestConfig) {
+        return PlanApiFp(this.configuration).planIdDelete(planId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary  Plan
+     * @param {string} planId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PlanApi
+     */
+    public planIdGet(planId: string, options?: RawAxiosRequestConfig) {
+        return PlanApiFp(this.configuration).planIdGet(planId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary  Plan
+     * @param {string} planId 
+     * @param {PlanRequest} planRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PlanApi
+     */
+    public planIdPut(planId: string, planRequest: PlanRequest, options?: RawAxiosRequestConfig) {
+        return PlanApiFp(this.configuration).planIdPut(planId, planRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary  Plan
+     * @param {PlanRequest} planRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PlanApi
+     */
+    public planPost(planRequest: PlanRequest, options?: RawAxiosRequestConfig) {
+        return PlanApiFp(this.configuration).planPost(planRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
