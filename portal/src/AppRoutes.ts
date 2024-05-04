@@ -10,6 +10,7 @@ const asAppRouteTypes = <T extends { [K in keyof T]: AppRoute }>(et: T): T =>
 const AppRoutes = asAppRouteTypes(
   Object.freeze({
     HomeScreen: { path: "/" },
+    PlanCreateScreen: { path: "/path/create" },
   }),
 );
 
