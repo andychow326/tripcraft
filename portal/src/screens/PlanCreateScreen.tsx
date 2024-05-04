@@ -14,6 +14,9 @@ import { useForm } from "react-hook-form";
 import { today, getLocalTimeZone } from "@internationalized/date";
 import { z } from "zod";
 import DateRangeCalendar from "../components/DateRangeCalendar";
+import useMutatePlan from "../queries/useMutatePlan";
+import { useNavigate } from "react-router-dom";
+import AppRoutes from "../AppRoutes";
 
 const PlanCreateFormSchema = z
   .object({
@@ -36,6 +39,8 @@ type PlanCreateFormValues = z.infer<typeof PlanCreateFormSchema>;
 
 const PlanCreateScreen: React.FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { mutateAsync: mutatePlan, isPending } = useMutatePlan();
 
   const { handleSubmit, setValue, clearErrors, register, watch, formState } =
     useForm<PlanCreateFormValues>({
@@ -43,7 +48,26 @@ const PlanCreateScreen: React.FC = () => {
     });
   const date = watch("date");
 
-  const onValidSubmit = useCallback((value: PlanCreateFormValues) => {}, []);
+  const onValidSubmit = useCallback(
+    async (value: PlanCreateFormValues) => {
+      if (value.date == null) {
+        return;
+      }
+      try {
+        const plan = await mutatePlan({
+          name: value.name,
+          config: {
+            dateStart: value.date.start.toString(),
+            dateEnd: value.date.end.toString(),
+          },
+        });
+        navigate(AppRoutes.PlanEditScreen.render(plan.id));
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    [mutatePlan, navigate],
+  );
 
   return (
     <div className="flex flex-col items-center w-full mt-4">
@@ -110,7 +134,7 @@ const PlanCreateScreen: React.FC = () => {
           isInvalid={formState.errors.date != null}
           errorMessage={formState.errors.date?.message}
         />
-        <Button type="submit">
+        <Button type="submit" isLoading={isPending}>
           {t("PlanCreateScreen.button.submit.label")}
         </Button>
       </form>
