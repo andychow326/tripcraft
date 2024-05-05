@@ -91,7 +91,7 @@ const ScreenLayout: React.FC<PropsWithChildren> = (props) => {
   );
 
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="w-full h-screen overflow-hidden">
       <Navbar
         className="border-b-1 border-black"
         onMenuOpenChange={setIsNavMenuOpen}
@@ -182,7 +182,7 @@ const ScreenLayout: React.FC<PropsWithChildren> = (props) => {
           </NavbarMenuItem>
         </NavbarMenu>
       </Navbar>
-      <div className="flex-grow">{children}</div>
+      <div className="h-[calc(100vh-65px)] overflow-auto">{children}</div>
     </div>
   );
 };
