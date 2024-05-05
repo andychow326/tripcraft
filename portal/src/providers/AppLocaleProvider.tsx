@@ -14,12 +14,14 @@ import { Translations } from "../../generated";
 
 interface AppLocaleContextValue {
   locale: Locale;
+  localeString: string;
   translate: (translations?: Translations | null) => string;
   changeLocale: (value: Locale) => void;
 }
 
 export const AppLocaleContext = createContext<AppLocaleContextValue>({
   locale: Locale.en,
+  localeString: Locale.en,
   translate: () => "",
   changeLocale: () => {},
 });
@@ -29,6 +31,12 @@ const AppLocaleProvider: React.FC<PropsWithChildren> = (props) => {
   const [locale, setLocale] = useState<Locale>(
     (window.localStorage.getItem("locale") ?? Locale.en) as Locale,
   );
+
+  const localeString = useMemo(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    return Locale[locale] ?? Locale.en;
+  }, [locale]);
 
   const translate = useCallback(
     (translations?: Translations | null): string => {
@@ -62,17 +70,16 @@ const AppLocaleProvider: React.FC<PropsWithChildren> = (props) => {
   const contextValue = useMemo(
     () => ({
       locale: locale,
+      localeString: localeString,
       translate: translate,
       changeLocale: changeLocale,
     }),
-    [locale, translate, changeLocale],
+    [locale, localeString, translate, changeLocale],
   );
 
   return (
     <AppLocaleContext.Provider value={contextValue}>
-      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-      {/* @ts-expect-error */}
-      <I18nProvider locale={Locale[locale]}>
+      <I18nProvider locale={localeString}>
         <I18nextProvider i18n={i18next}>{children}</I18nextProvider>
       </I18nProvider>
     </AppLocaleContext.Provider>
