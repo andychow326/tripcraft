@@ -82,6 +82,7 @@ class Country(Base):
     id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
     name: Mapped[str] = mapped_column(sa.Text, nullable=False)
     iso3: Mapped[str] = mapped_column(sa.Text, nullable=True)
+    iso2: Mapped[str] = mapped_column(sa.Text, nullable=True)
     capital: Mapped[str] = mapped_column(sa.Text, nullable=True)
     latitude: Mapped[float] = mapped_column(sa.Numeric, nullable=True)
     longitude: Mapped[float] = mapped_column(sa.Numeric, nullable=True)

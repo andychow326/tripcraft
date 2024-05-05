@@ -43,6 +43,7 @@ def map_country(country: Country) -> CountrySchema:
         id=country.id,
         name=country.translations,
         iso3=country.iso3,
+        iso2=country.iso2,
         latitude=country.latitude,
         longitude=country.longitude,
         emoji=country.emoji,

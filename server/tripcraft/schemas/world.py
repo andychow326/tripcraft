@@ -25,6 +25,7 @@ class CountrySchema(BaseModelWithCamelCaseAlias):
     id: int
     name: Translations
     iso3: str
+    iso2: str
     latitude: float
     longitude: float
     emoji: str
