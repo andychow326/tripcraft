@@ -41,6 +41,8 @@ def upgrade() -> None:
             nullable=False,
             server_default=sa.func.timezone("UTC", sa.func.now()),
         ),
+        sa.Column("public_role", sa.TEXT, nullable=False),
+        sa.Column("public_visibility", sa.BOOLEAN, nullable=False),
         schema=POSTGRES_SCHEMA,
     )
 

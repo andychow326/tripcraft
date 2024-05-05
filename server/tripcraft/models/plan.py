@@ -15,7 +15,7 @@ from tripcraft.utils.translate import (
     to_chinese_simplified,
 )
 
-from .plan_user import PlanUser
+from .plan_user import PlanUser, PlanUserRole
 
 if TYPE_CHECKING:
     from .user import User
@@ -76,6 +76,10 @@ class Plan(Base, TimestampMixin):
     id: Mapped[str] = mapped_column(sa.Text, primary_key=True)
     name: Mapped[str] = mapped_column(sa.Text, nullable=False)
     _config: Mapped[Dict[str, Any]] = mapped_column("config", JSONB, nullable=False)
+    public_role: Mapped[PlanUserRole] = mapped_column(
+        sa.Enum(PlanUserRole), nullable=False
+    )
+    public_visibility: Mapped[bool] = mapped_column(sa.Boolean, nullable=False)
 
     user_associations: Mapped[List["PlanUser"]] = relationship(back_populates="plan")
     users: Mapped[List["User"]] = relationship(
