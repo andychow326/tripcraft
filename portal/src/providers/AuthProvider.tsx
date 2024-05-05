@@ -40,11 +40,13 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
   const authenticate = useCallback((token: string) => {
     window.localStorage.setItem("accessToken", token);
     setAccessToken(token);
+    window.location.reload();
   }, []);
 
   const logout = useCallback(() => {
     window.localStorage.removeItem("accessToken");
     setAccessToken(null);
+    window.location.reload();
   }, []);
 
   const value = useMemo((): AuthContextValue => {
