@@ -142,6 +142,12 @@ export interface CountrySchema {
     'iso3': string;
     /**
      * 
+     * @type {string}
+     * @memberof CountrySchema
+     */
+    'iso2': string;
+    /**
+     * 
      * @type {number}
      * @memberof CountrySchema
      */
@@ -219,21 +225,142 @@ export interface LoginResponse {
 /**
  * 
  * @export
- * @interface PlanConfigSchema
+ * @interface PlanConfigDetailDestinationSchema
  */
-export interface PlanConfigSchema {
+export interface PlanConfigDetailDestinationSchema {
     /**
      * 
      * @type {string}
-     * @memberof PlanConfigSchema
+     * @memberof PlanConfigDetailDestinationSchema
+     */
+    'type': PlanConfigDetailDestinationSchemaTypeEnum;
+    /**
+     * 
+     * @type {number}
+     * @memberof PlanConfigDetailDestinationSchema
+     */
+    'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof PlanConfigDetailDestinationSchema
+     */
+    'countryIso2'?: string | null;
+}
+
+export const PlanConfigDetailDestinationSchemaTypeEnum = {
+    Country: 'country',
+    State: 'state',
+    City: 'city'
+} as const;
+
+export type PlanConfigDetailDestinationSchemaTypeEnum = typeof PlanConfigDetailDestinationSchemaTypeEnum[keyof typeof PlanConfigDetailDestinationSchemaTypeEnum];
+
+/**
+ * 
+ * @export
+ * @interface PlanConfigDetailScheduleSchema
+ */
+export interface PlanConfigDetailScheduleSchema {
+    /**
+     * 
+     * @type {string}
+     * @memberof PlanConfigDetailScheduleSchema
+     */
+    'place': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PlanConfigDetailScheduleSchema
+     */
+    'timeStart': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PlanConfigDetailScheduleSchema
+     */
+    'timeEnd': string;
+}
+/**
+ * 
+ * @export
+ * @interface PlanConfigDetailSchema
+ */
+export interface PlanConfigDetailSchema {
+    /**
+     * 
+     * @type {string}
+     * @memberof PlanConfigDetailSchema
+     */
+    'date': string;
+    /**
+     * 
+     * @type {Array<PlanConfigDetailDestinationSchema>}
+     * @memberof PlanConfigDetailSchema
+     */
+    'destinations': Array<PlanConfigDetailDestinationSchema>;
+    /**
+     * 
+     * @type {{ [key: string]: Translations; }}
+     * @memberof PlanConfigDetailSchema
+     */
+    'destinationHolidays'?: { [key: string]: Translations; };
+    /**
+     * 
+     * @type {Array<PlanConfigDetailScheduleSchema>}
+     * @memberof PlanConfigDetailSchema
+     */
+    'schedules': Array<PlanConfigDetailScheduleSchema>;
+}
+/**
+ * 
+ * @export
+ * @interface PlanConfigSchemaInput
+ */
+export interface PlanConfigSchemaInput {
+    /**
+     * 
+     * @type {string}
+     * @memberof PlanConfigSchemaInput
      */
     'dateStart': string;
     /**
      * 
      * @type {string}
-     * @memberof PlanConfigSchema
+     * @memberof PlanConfigSchemaInput
      */
     'dateEnd': string;
+    /**
+     * 
+     * @type {Array<PlanConfigDetailSchema>}
+     * @memberof PlanConfigSchemaInput
+     */
+    'details'?: Array<PlanConfigDetailSchema>;
+}
+/**
+ * 
+ * @export
+ * @interface PlanConfigSchemaOutput
+ */
+export interface PlanConfigSchemaOutput {
+    /**
+     * 
+     * @type {string}
+     * @memberof PlanConfigSchemaOutput
+     */
+    'dateStart': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PlanConfigSchemaOutput
+     */
+    'dateEnd': string;
+    /**
+     * 
+     * @type {Array<PlanConfigDetailSchema>}
+     * @memberof PlanConfigSchemaOutput
+     */
+    'details'?: Array<PlanConfigDetailSchema>;
 }
 /**
  * 
@@ -262,10 +389,10 @@ export interface PlanRequest {
     'name': string;
     /**
      * 
-     * @type {PlanConfigSchema}
+     * @type {PlanConfigSchemaInput}
      * @memberof PlanRequest
      */
-    'config': PlanConfigSchema;
+    'config': PlanConfigSchemaInput;
 }
 /**
  * 
@@ -287,10 +414,10 @@ export interface PlanSchema {
     'name': string;
     /**
      * 
-     * @type {PlanConfigSchema}
+     * @type {PlanConfigSchemaOutput}
      * @memberof PlanSchema
      */
-    'config': PlanConfigSchema;
+    'config': PlanConfigSchemaOutput;
 }
 /**
  * 
@@ -312,10 +439,10 @@ export interface PlanSingleResponse {
     'name': string;
     /**
      * 
-     * @type {PlanConfigSchema}
+     * @type {PlanConfigSchemaOutput}
      * @memberof PlanSingleResponse
      */
-    'config': PlanConfigSchema;
+    'config': PlanConfigSchemaOutput;
 }
 /**
  * 
