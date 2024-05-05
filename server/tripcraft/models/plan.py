@@ -1,6 +1,6 @@
 import enum
 from datetime import date, datetime
-from typing import TYPE_CHECKING, Any, Dict, List
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 import holidays
 import sqlalchemy as sa
@@ -16,9 +16,7 @@ from tripcraft.utils.translate import (
 )
 
 from .plan_user import PlanUser, PlanUserRole
-
-if TYPE_CHECKING:
-    from .user import User
+from .user import User
 
 
 class PlanConfigDetailDestinationType(enum.Enum):
@@ -95,3 +93,16 @@ class Plan(Base, TimestampMixin):
     @config.setter
     def config(self, value: PlanConfig):
         self._config = value.model_dump_json()
+
+    def is_visible(self, user: Optional[User]) -> bool:
+        return self.public_visibility or user is not None
+
+    def is_editable(self, user: Optional[User] = None) -> bool:
+        is_editable = self.public_role != PlanUserRole.viewer
+        if user is not None and not is_editable:
+            plan_user = next(
+                filter(lambda u: u.user_id == user.id, self.user_associations), None
+            )
+            if plan_user is not None and plan_user.role != PlanUserRole.viewer:
+                is_editable = True
+        return is_editable

@@ -37,11 +37,14 @@ class PlanSchema(BaseModelWithCamelCaseAlias):
     id: str
     name: str
     config: PlanConfigSchema
+    is_editable: bool
 
 
 class PlanRequest(BaseModelWithCamelCaseAlias):
     name: str
     config: PlanConfigSchema
+    public_role: Optional[Literal["editor", "viewer"]] = None
+    public_visibility: Optional[bool] = None
 
 
 class PlanMultipleResponse(BaseModelWithCamelCaseAlias):
