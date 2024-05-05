@@ -430,7 +430,27 @@ export interface PlanRequest {
      * @memberof PlanRequest
      */
     'config': PlanConfigSchemaInput;
+    /**
+     * 
+     * @type {string}
+     * @memberof PlanRequest
+     */
+    'publicRole'?: PlanRequestPublicRoleEnum | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PlanRequest
+     */
+    'publicVisibility'?: boolean | null;
 }
+
+export const PlanRequestPublicRoleEnum = {
+    Editor: 'editor',
+    Viewer: 'viewer'
+} as const;
+
+export type PlanRequestPublicRoleEnum = typeof PlanRequestPublicRoleEnum[keyof typeof PlanRequestPublicRoleEnum];
+
 /**
  * 
  * @export
@@ -455,6 +475,12 @@ export interface PlanSchema {
      * @memberof PlanSchema
      */
     'config': PlanConfigSchemaOutput;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PlanSchema
+     */
+    'isEditable': boolean;
 }
 /**
  * 
@@ -480,6 +506,12 @@ export interface PlanSingleResponse {
      * @memberof PlanSingleResponse
      */
     'config': PlanConfigSchemaOutput;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PlanSingleResponse
+     */
+    'isEditable': boolean;
 }
 /**
  * 
