@@ -242,6 +242,12 @@ export interface PlanConfigDetailDestinationSchema {
     'id': number;
     /**
      * 
+     * @type {Translations}
+     * @memberof PlanConfigDetailDestinationSchema
+     */
+    'name'?: Translations | null;
+    /**
+     * 
      * @type {string}
      * @memberof PlanConfigDetailDestinationSchema
      */
@@ -284,31 +290,62 @@ export interface PlanConfigDetailScheduleSchema {
 /**
  * 
  * @export
- * @interface PlanConfigDetailSchema
+ * @interface PlanConfigDetailSchemaInput
  */
-export interface PlanConfigDetailSchema {
+export interface PlanConfigDetailSchemaInput {
     /**
      * 
      * @type {string}
-     * @memberof PlanConfigDetailSchema
+     * @memberof PlanConfigDetailSchemaInput
      */
     'date': string;
     /**
      * 
      * @type {Array<PlanConfigDetailDestinationSchema>}
-     * @memberof PlanConfigDetailSchema
+     * @memberof PlanConfigDetailSchemaInput
      */
     'destinations': Array<PlanConfigDetailDestinationSchema>;
     /**
      * 
      * @type {{ [key: string]: Translations; }}
-     * @memberof PlanConfigDetailSchema
+     * @memberof PlanConfigDetailSchemaInput
      */
     'destinationHolidays'?: { [key: string]: Translations; };
     /**
      * 
      * @type {Array<PlanConfigDetailScheduleSchema>}
-     * @memberof PlanConfigDetailSchema
+     * @memberof PlanConfigDetailSchemaInput
+     */
+    'schedules': Array<PlanConfigDetailScheduleSchema>;
+}
+/**
+ * 
+ * @export
+ * @interface PlanConfigDetailSchemaOutput
+ */
+export interface PlanConfigDetailSchemaOutput {
+    /**
+     * 
+     * @type {string}
+     * @memberof PlanConfigDetailSchemaOutput
+     */
+    'date': string;
+    /**
+     * 
+     * @type {Array<PlanConfigDetailDestinationSchema>}
+     * @memberof PlanConfigDetailSchemaOutput
+     */
+    'destinations': Array<PlanConfigDetailDestinationSchema>;
+    /**
+     * 
+     * @type {{ [key: string]: Translations; }}
+     * @memberof PlanConfigDetailSchemaOutput
+     */
+    'destinationHolidays'?: { [key: string]: Translations; };
+    /**
+     * 
+     * @type {Array<PlanConfigDetailScheduleSchema>}
+     * @memberof PlanConfigDetailSchemaOutput
      */
     'schedules': Array<PlanConfigDetailScheduleSchema>;
 }
@@ -332,10 +369,10 @@ export interface PlanConfigSchemaInput {
     'dateEnd': string;
     /**
      * 
-     * @type {Array<PlanConfigDetailSchema>}
+     * @type {Array<PlanConfigDetailSchemaInput>}
      * @memberof PlanConfigSchemaInput
      */
-    'details'?: Array<PlanConfigDetailSchema>;
+    'details'?: Array<PlanConfigDetailSchemaInput>;
 }
 /**
  * 
@@ -357,10 +394,10 @@ export interface PlanConfigSchemaOutput {
     'dateEnd': string;
     /**
      * 
-     * @type {Array<PlanConfigDetailSchema>}
+     * @type {Array<PlanConfigDetailSchemaOutput>}
      * @memberof PlanConfigSchemaOutput
      */
-    'details'?: Array<PlanConfigDetailSchema>;
+    'details'?: Array<PlanConfigDetailSchemaOutput>;
 }
 /**
  * 
