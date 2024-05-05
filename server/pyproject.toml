@@ -19,6 +19,7 @@ pyjwt = "^2.8.0"
 cryptography = "^42.0.5"
 opencc = "^1.1.7"
 deep-translator = "^1.11.4"
+holidays = "^0.47"
 
 
 [tool.poetry.group.dev.dependencies]
