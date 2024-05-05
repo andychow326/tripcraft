@@ -73,14 +73,14 @@ def map_plan(plan: Plan) -> PlanSchema:
 
 
 @plan.get("/plan", operation_id="plan_get", response_model=PlanMultipleResponse)
-def _plan(user: Annotated[User, Depends(with_current_user)]):
+def _plan(user: Annotated[User, Depends(with_current_user(False))]):
     return PlanMultipleResponse(results=list(map(map_plan, user.plans)))
 
 
 @plan.get(
     "/plan/{plan_id}", operation_id="plan_id_get", response_model=PlanSingleResponse
 )
-def _plan(plan_id: str, user: Annotated[User, Depends(with_current_user)]):
+def _plan(plan_id: str, user: Annotated[User, Depends(with_current_user(False))]):
     plan = next(filter(lambda plan: plan.id == plan_id, user.plans), None)
     if plan is None:
         raise error.not_found()
@@ -92,7 +92,7 @@ def _plan(plan_id: str, user: Annotated[User, Depends(with_current_user)]):
 def _plan(
     body: PlanRequest,
     session: Annotated[Session, Depends(with_db_session)],
-    user: Annotated[User, Depends(with_current_user)],
+    user: Annotated[User, Depends(with_current_user(False))],
 ):
     date_start = body.config.date_start
     date_end = body.config.date_end
@@ -137,7 +137,7 @@ def _plan(
     plan_id: str,
     body: PlanRequest,
     session: Annotated[Session, Depends(with_db_session)],
-    user: Annotated[User, Depends(with_current_user)],
+    user: Annotated[User, Depends(with_current_user(False))],
     world_query: Annotated[WorldQuery, Depends(with_world_query())],
 ):
     plan = next(filter(lambda plan: plan.id == plan_id, user.plans), None)
@@ -207,7 +207,7 @@ def _plan(
 def _plan(
     plan_id: str,
     session: Annotated[Session, Depends(with_db_session)],
-    user: Annotated[User, Depends(with_current_user)],
+    user: Annotated[User, Depends(with_current_user(False))],
 ):
     plan = next(filter(lambda plan: plan.id == plan_id, user.plans), None)
     if plan is None:
