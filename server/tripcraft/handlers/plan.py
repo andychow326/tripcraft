@@ -64,7 +64,7 @@ def _plan(
     plan_user = PlanUser(
         plan_id=plan.id,
         user_id=user.id,
-        role=PlanUserRole.editor,
+        role=PlanUserRole.owner,
     )
     session.add(plan_user)
     session.commit()
