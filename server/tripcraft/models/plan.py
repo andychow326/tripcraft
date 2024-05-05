@@ -1,13 +1,19 @@
 import enum
-from datetime import date
+from datetime import date, datetime
 from typing import TYPE_CHECKING, Any, Dict, List
 
+import holidays
 import sqlalchemy as sa
 from pydantic import BaseModel
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from tripcraft.models.base import Base, TimestampMixin
+from tripcraft.schemas.world import Translations
+from tripcraft.utils.translate import (
+    chinese_simplified_to_traditional,
+    to_chinese_simplified,
+)
 
 from .plan_user import PlanUser
 
@@ -24,17 +30,43 @@ class PlanConfigDetailDestinationType(enum.Enum):
 class PlanConfigDetailDestination(BaseModel):
     type: PlanConfigDetailDestinationType
     id: int
+    country_iso2: str
+
+
+class PlanConfigDetailSchedule(BaseModel):
+    place: str
+    time_start: datetime
+    time_end: datetime
 
 
 class PlanConfigDetail(BaseModel):
     date: date
     destinations: List[PlanConfigDetailDestination]
+    schedules: List[PlanConfigDetailSchedule]
+
+    @property
+    def destination_holidays(self) -> Dict[str, Translations]:
+        result = {}
+        for destination in self.destinations:
+            destination_holidays = holidays.country_holidays(destination.country_iso2)
+            holiday = destination_holidays.get(self.date, None)
+            if holiday is not None:
+                en = holiday
+                zh_hans = to_chinese_simplified(en)
+                zh_hant = chinese_simplified_to_traditional(zh_hans)
+                result[destination.country_iso2] = Translations(
+                    en=en,
+                    zh_hans=zh_hans,
+                    zh_hant=zh_hant,
+                )
+
+        return result
 
 
 class PlanConfig(BaseModel):
     date_start: date
     date_end: date
-    # details: List[PlanConfigDetail]
+    details: List[PlanConfigDetail]
 
 
 class Plan(Base, TimestampMixin):
