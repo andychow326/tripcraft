@@ -61,7 +61,9 @@ const PlanCreateScreen: React.FC = () => {
             dateEnd: value.date.end.toString(),
           },
         });
-        navigate(AppRoutes.PlanScreen.render(plan.id));
+        navigate(
+          AppRoutes.PlanScreen.render(plan.id, value.date.start.toString()),
+        );
       } catch (e) {
         console.error(e);
       }

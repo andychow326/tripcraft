@@ -13,7 +13,7 @@ const AppRoutes = asAppRouteTypes(
     PlanCreateScreen: { path: "/plan/create" },
     PlanScreen: {
       path: "/plan/:planId",
-      render: (planId: string) => `/plan/${planId}`,
+      render: (planId: string, date?: string) => `/plan/${planId}?date=${date}`,
     },
   }),
 );
