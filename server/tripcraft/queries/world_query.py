@@ -1,4 +1,4 @@
-from typing import Annotated, Optional, Sequence
+from typing import Annotated, Literal, Optional, Sequence
 
 import sqlalchemy as sa
 from fastapi import Depends
@@ -263,6 +263,23 @@ class WorldQuery:
         self.country = CountryQuery(session)
         self.state = StateQuery(session)
         self.city = CityQuery(session)
+
+    def get_country_iso2_by_type_id(
+        self, type: Literal["country", "state", "city"], id: str
+    ) -> Optional[str]:
+        if type == "country":
+            country = self.country.get_by_id(id)
+            if country is not None:
+                return country.iso2
+        if type == "state":
+            state = self.state.get_by_id(id)
+            if state is not None:
+                return state.country.iso2
+        if type == "city":
+            city = self.city.get_by_id(id)
+            if city is not None:
+                return city.country.iso2
+        return None
 
 
 def with_world_query():
