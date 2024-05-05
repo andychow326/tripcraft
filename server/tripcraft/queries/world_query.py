@@ -5,7 +5,7 @@ from fastapi import Depends
 from sqlalchemy.orm import Session
 
 from tripcraft.models import City, Country, Region, State, SubRegion
-from tripcraft.schemas import Pagination
+from tripcraft.schemas import Pagination, Translations
 from tripcraft.utils import with_db_session
 
 from .base_query import BaseQuery
@@ -279,6 +279,23 @@ class WorldQuery:
             city = self.city.get_by_id(id)
             if city is not None:
                 return city.country.iso2
+        return None
+
+    def get_name_by_type_id(
+        self, type: Literal["country", "state", "city"], id: str
+    ) -> Optional[Translations]:
+        if type == "country":
+            country = self.country.get_by_id(id)
+            if country is not None:
+                return country.translations
+        if type == "state":
+            state = self.state.get_by_id(id)
+            if state is not None:
+                return state.translations
+        if type == "city":
+            city = self.city.get_by_id(id)
+            if city is not None:
+                return city.translations
         return None
 
 

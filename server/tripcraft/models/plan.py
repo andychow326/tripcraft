@@ -30,6 +30,7 @@ class PlanConfigDetailDestinationType(enum.Enum):
 class PlanConfigDetailDestination(BaseModel):
     type: PlanConfigDetailDestinationType
     id: int
+    name: Translations
     country_iso2: str
 
 

@@ -36,6 +36,7 @@ def map_plan_config_detail_destination(
     return PlanConfigDetailDestinationSchema(
         type=destination.type.value,
         id=destination.id,
+        name=destination.name,
         country_iso2=destination.country_iso2,
     )
 
@@ -157,6 +158,7 @@ def _plan(
                         lambda d: PlanConfigDetailDestination(
                             type=d.type,
                             id=d.id,
+                            name=world_query.get_name_by_type_id(d.type, d.id),
                             country_iso2=world_query.get_country_iso2_by_type_id(
                                 d.type, d.id
                             ),

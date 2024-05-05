@@ -3,13 +3,14 @@ from typing import Dict, Literal, Optional, Sequence
 
 from pydantic import Field
 
-from tripcraft.schemas import Translations
 from tripcraft.schemas.base import BaseModelWithCamelCaseAlias
+from tripcraft.schemas.world import Translations
 
 
 class PlanConfigDetailDestinationSchema(BaseModelWithCamelCaseAlias):
     type: Literal["country", "state", "city"]
     id: int
+    name: Optional[Translations] = None
     country_iso2: Optional[str] = None
 
 
