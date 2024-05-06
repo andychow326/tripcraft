@@ -1,4 +1,5 @@
 {
   "mismatch_passwords": "Passwords do not match",
-  "empty_date": "Please select date(s)"
+  "empty_date": "Please select date(s)",
+  "invalid_time": "Please input valid time(s)"
 }

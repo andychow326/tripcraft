@@ -58,5 +58,11 @@
   "PlanScreen.detail.modal.destination.search.from.label": "From City",
   "PlanScreen.detail.modal.destination.search.from.placeholder": "Select a city which you will depart from",
   "PlanScreen.detail.modal.destination.search.to.label": "To City",
-  "PlanScreen.detail.modal.destination.search.to.placeholder": "Select cities which you will going to"
+  "PlanScreen.detail.modal.destination.search.to.placeholder": "Select cities which you will going to",
+  "PlanScreen.detail.modal.schedule.header": "Add Schedule",
+  "PlanScreen.detail.modal.schedule.input.place.label": "Place",
+  "PlanScreen.detail.modal.schedule.input.place.placeholder": "Enter the name of the place",
+  "PlanScreen.detail.modal.schedule.input.time_start.label": "Start Time",
+  "PlanScreen.detail.modal.schedule.input.time_end.label": "End Time",
+  "PlanScreen.detail.modal.schedule.footer.button.confirm": "Confirm"
 }

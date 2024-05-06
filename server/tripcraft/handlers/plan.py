@@ -174,6 +174,9 @@ def _plan(
     for day in range((date_end - date_start).days + 1):
         date = date_start + datetime.timedelta(day)
         detail = next(filter(lambda d: d.date == date, body.config.details), None)
+        detail_original = next(
+            filter(lambda d: d.date == date, plan.config.details), None
+        )
         if detail is not None:
             destinations = list(
                 map(
@@ -188,8 +191,6 @@ def _plan(
                     detail.destinations,
                 )
             )
-            if len(destinations) > 0:
-                last_detination = destinations[-1]
             schedules = list(
                 map(
                     lambda s: PlanConfigDetailSchedule(
@@ -200,9 +201,14 @@ def _plan(
             )
             detail = PlanConfigDetail(
                 date=date,
-                destinations=destinations,
-                schedules=schedules,
+                destinations=detail_original.destinations,
+                schedules=detail_original.schedules,
             )
+            if len(destinations) > 0:
+                last_detination = destinations[-1]
+                detail.destinations = destinations
+            if len(schedules) > 0:
+                detail.schedules.extend(schedules)
         else:
             detail = next(filter(lambda d: d.date == date, plan.config.details), None)
             if detail is None:

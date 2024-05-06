@@ -1,4 +1,5 @@
 {
   "mismatch_passwords": "密碼不匹配",
-  "empty_date": "請選擇日期"
+  "empty_date": "請選擇日期",
+  "invalid_time": "請輸入有效時間"
 }

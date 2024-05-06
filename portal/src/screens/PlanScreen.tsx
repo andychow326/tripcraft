@@ -18,14 +18,18 @@ import {
   CardBody,
   CardHeader,
   Chip,
+  Input,
   Modal,
   ModalBody,
   ModalContent,
   ModalHeader,
   Spinner,
+  TimeInput,
   useDisclosure,
 } from "@nextui-org/react";
 import cn from "classnames";
+import { z } from "zod";
+import { TimeValue } from "@react-types/datepicker";
 import useQueryPlanDetail from "../queries/useQueryPlanDetail";
 import { AppLocaleContext } from "../providers/AppLocaleProvider";
 import { IconArrowLeft, IconPencil, IconPlus } from "@tabler/icons-react";
@@ -33,6 +37,27 @@ import useQueryWorldState from "../queries/useQueryWorldState";
 import { useDebounce } from "@uidotdev/usehooks";
 import { StateSchema } from "../../generated";
 import useMutatePlanDetail from "../queries/useMutatePlanDetail";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const PlanScheduleFormSchema = z
+  .object({
+    place: z.string().min(1),
+    time: z.object({
+      timeStart: z.custom<TimeValue>(),
+      timeEnd: z.custom<TimeValue>(),
+    }),
+  })
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  .refine((data) => data.time.timeStart.compare?.(data.time.timeEnd) < 0, {
+    path: ["time"],
+    params: {
+      i18n: { key: "invalid_time" },
+    },
+  });
+
+type PlanScheduleFormValues = z.infer<typeof PlanScheduleFormSchema>;
 
 const PlanScreen: React.FC = () => {
   const { t } = useTranslation();
@@ -51,6 +76,10 @@ const PlanScreen: React.FC = () => {
   const {
     isOpen: isOpenDestinationAutoComplete,
     onOpenChange: onOpenChangeDestinationAutoComplete,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenScheduleEditModal,
+    onOpenChange: onOpenChangeScheduleEditModal,
   } = useDisclosure();
 
   const {
@@ -84,6 +113,58 @@ const PlanScreen: React.FC = () => {
   });
 
   const detailDatePanelRef = useRef<HTMLDivElement>(null);
+
+  const {
+    handleSubmit: handleSubmitPlanScheduleForm,
+    setValue: setValuePlanScheduleForm,
+    register: registerPlanScheduleForm,
+    formState: formStatePlanScheduleForm,
+    clearErrors: clearErrorsPlanScheduleForm,
+    reset: resetPlanScheduleForm,
+  } = useForm<PlanScheduleFormValues>({
+    resolver: zodResolver(PlanScheduleFormSchema),
+  });
+
+  const onValidSubmitPlanScheduleForm = useCallback(
+    (date: string) => async (value: PlanScheduleFormValues) => {
+      if (planData == null) {
+        return;
+      }
+      try {
+        await mutatePlanDetail({
+          ...planData,
+          config: {
+            ...planData.config,
+            details: [
+              {
+                date: date,
+                destinations: [],
+                schedules: [
+                  {
+                    place: value.place,
+                    timeStart: `${date}T${value.time.timeStart.toString()}Z`,
+                    timeEnd: `${date}T${value.time.timeEnd.toString()}Z`,
+                  },
+                ],
+              },
+            ],
+          },
+        });
+        refetchPlanData();
+        resetPlanScheduleForm();
+        onOpenChangeScheduleEditModal();
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    [
+      mutatePlanDetail,
+      onOpenChangeScheduleEditModal,
+      planData,
+      refetchPlanData,
+      resetPlanScheduleForm,
+    ],
+  );
 
   const onClickPlanDetail = useCallback(
     (date: string) => () => {
@@ -172,6 +253,19 @@ const PlanScreen: React.FC = () => {
       refetchPlanData,
       selectedDestinations,
     ],
+  );
+
+  const getTimeString = useCallback(
+    (dateTime: string) => {
+      const date = new Date(dateTime);
+      return date.toLocaleTimeString(localeString, {
+        timeZone: "UTC",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
+    },
+    [localeString],
   );
 
   if (isLoadingPlanData) {
@@ -264,7 +358,10 @@ const PlanScreen: React.FC = () => {
               </div>
               <div className="flex flex-col gap-4 py-2 px-4">
                 {planData.isEditable && (
-                  <Button startContent={<IconPlus />}>
+                  <Button
+                    startContent={<IconPlus />}
+                    onPress={onOpenChangeScheduleEditModal}
+                  >
                     {t("PlanScreen.detail.schedule.button.add.label")}
                   </Button>
                 )}
@@ -272,8 +369,13 @@ const PlanScreen: React.FC = () => {
                   <Card
                     key={`${schedule.place}-${schedule.timeStart}-${schedule.timeEnd}`}
                   >
-                    <CardHeader></CardHeader>
-                    <CardBody></CardBody>
+                    <CardHeader className="text-xl font-medium">
+                      {schedule.place}
+                    </CardHeader>
+                    <CardBody>
+                      {getTimeString(schedule.timeStart)} -{" "}
+                      {getTimeString(schedule.timeEnd)}
+                    </CardBody>
                   </Card>
                 ))}
               </div>
@@ -350,6 +452,73 @@ const PlanScreen: React.FC = () => {
                   )}
                 </Button>
               </ModalBody>
+            </ModalContent>
+          </Modal>
+          <Modal
+            isOpen={isOpenScheduleEditModal}
+            onOpenChange={onOpenChangeScheduleEditModal}
+          >
+            <ModalContent>
+              <ModalHeader>
+                {t("PlanScreen.detail.modal.schedule.header")}
+              </ModalHeader>
+              <form
+                onSubmit={handleSubmitPlanScheduleForm(
+                  onValidSubmitPlanScheduleForm(detail.date),
+                )}
+              >
+                <ModalBody>
+                  <Input
+                    {...registerPlanScheduleForm("place")}
+                    isInvalid={formStatePlanScheduleForm.errors.place != null}
+                    errorMessage={
+                      formStatePlanScheduleForm.errors.place?.message
+                    }
+                    label={t(
+                      "PlanScreen.detail.modal.schedule.input.place.label",
+                    )}
+                    placeholder={t(
+                      "PlanScreen.detail.modal.schedule.input.place.placeholder",
+                    )}
+                  />
+                  <div className="flex flex-row gap-4">
+                    <TimeInput
+                      {...registerPlanScheduleForm("time.timeStart")}
+                      onChange={(value) => {
+                        clearErrorsPlanScheduleForm("time");
+                        setValuePlanScheduleForm("time.timeStart", value);
+                      }}
+                      isInvalid={formStatePlanScheduleForm.errors.time != null}
+                      errorMessage={
+                        formStatePlanScheduleForm.errors.time?.root?.message
+                      }
+                      label={t(
+                        "PlanScreen.detail.modal.schedule.input.time_start.label",
+                      )}
+                    />
+                    <TimeInput
+                      {...registerPlanScheduleForm("time.timeEnd")}
+                      onChange={(value) => {
+                        clearErrorsPlanScheduleForm("time");
+                        setValuePlanScheduleForm("time.timeEnd", value);
+                      }}
+                      isInvalid={formStatePlanScheduleForm.errors.time != null}
+                      label={t(
+                        "PlanScreen.detail.modal.schedule.input.time_end.label",
+                      )}
+                    />
+                  </div>
+                  <Button
+                    color="primary"
+                    type="submit"
+                    isLoading={isPendingMutatePlanDetail}
+                  >
+                    {t(
+                      "PlanScreen.detail.modal.schedule.footer.button.confirm",
+                    )}
+                  </Button>
+                </ModalBody>
+              </form>
             </ModalContent>
           </Modal>
         </div>
