@@ -30,6 +30,15 @@
 
   "HomeScreen.campaign.header": "开始计划你的行程!",
   "HomeScreen.campaign.content": "探索世界各地的国家和城市!\n寻找你的目的地!",
+  "HomeScreen.campaign.button.start_planning": "现在开始规划我的行程!",
   "HomeScreen.explore.header": "探索",
-  "HomeScreen.explore.popular.header": "人气目的地"
+  "HomeScreen.explore.popular.header": "人气目的地",
+
+  "PlanCreateScreen.header": "建立新的行程",
+  "PlanCreateScreen.input.name.label": "名称",
+  "PlanCreateScreen.input.date.depart.label": "去程",
+  "PlanCreateScreen.input.date.return.label": "回程",
+  "PlanCreateScreen.input.date.depart.placeholder": "选择去程日期",
+  "PlanCreateScreen.input.date.return.placeholder": "选择回程日期",
+  "PlanCreateScreen.button.submit.label": "提交"
 }
