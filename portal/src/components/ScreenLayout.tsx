@@ -26,6 +26,7 @@ import { AppLocaleContext } from "../providers/AppLocaleProvider";
 import { Locale } from "../i18n/locale";
 import { IconLogout, IconUserFilled, IconWorld } from "@tabler/icons-react";
 import { AuthContext } from "../providers/AuthProvider";
+import AppRoutes from "../AppRoutes";
 
 interface LocaleSelectorProps {
   className?: string;
@@ -103,9 +104,9 @@ const ScreenLayout: React.FC<PropsWithChildren> = (props) => {
             className="sm:hidden"
           />
           <NavbarBrand>
-            <p className="font-bold text-inherit">
-              {t("ScreenLayout.navbar.logo.name")}
-            </p>
+            <a href={AppRoutes.HomeScreen.path}>
+              <img src="/logo.png" className="h-16" />
+            </a>
           </NavbarBrand>
         </NavbarContent>
         <NavbarContent justify="end">
