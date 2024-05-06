@@ -306,7 +306,7 @@ const PlanScreen: React.FC = () => {
               <span>{t("PlanScreen.detail.button.back")}</span>
             </Button>
           </div>
-          <div className="flex flex-row divide-x-1 divide-black h-full">
+          <div className="flex flex-row divide-x-1 divide-black h-[calc(100%-56px)]">
             <div
               ref={detailDatePanelRef}
               className="min-w-56 text-lg overflow-auto"
@@ -331,7 +331,7 @@ const PlanScreen: React.FC = () => {
                 </div>
               ))}
             </div>
-            <div className="w-full h-full flex flex-col divide-y-1 divide-black">
+            <div className="w-full divide-y-1 divide-black overflow-auto">
               <div className="flex flex-col pl-8 py-4 gap-4">
                 <h1 className={cn("text-2xl font-black", "sm:text-4xl")}>
                   {t("PlanScreen.detail.content.header", { day: index + 1 })}
