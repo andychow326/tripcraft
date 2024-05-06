@@ -16,6 +16,43 @@ There are 3 goals for this project:
 - Simplify Travel Planning: Provide user-friendly and intuitive platform for users to plan for their itineraries. Users will be able to easily input their travel destinations and date and the application will then return related attractions and public holiday information and they can further add to their schedule.
 - Encourage Community Engagement: Provide a way for users to share their travel itineraries to the general public. Other users will be able to gather some basic ideas during planning for their trips.
 
+## Development
+
+### Prerequisites
+
+1. [asdf](https://asdf-vm.com)
+2. [Docker](https://www.docker.com)
+
+### Environment Setup
+
+Under the project root directory, run the following command:
+
+```bash
+git submodule update --init --recursive
+make vendor
+make setup
+```
+
+### Running everything
+
+Under the project root directory, run the following command:
+
+```bash
+docker compose up -d
+```
+
+After all containers have been created and started, run the following command:
+
+```bash
+make -C server upgrade-db
+```
+
+### Project architecture
+
+- Database: PostgreSQL + Elasticsearch
+- Backend: Python + FastAPI
+- Frontend: TypeScript + ReactJS
+
 ## Credits
 
 ### Data used in this project
