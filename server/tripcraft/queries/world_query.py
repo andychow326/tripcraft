@@ -155,11 +155,12 @@ class StateQuery(BaseQuery):
     ) -> Sequence[State]:
         _query = self.query.from_statement(
             sa.sql.text(
-                "SELECT * FROM states WHERE states ==> :name "
+                "SELECT zdb.score(ctid), * FROM states WHERE states ==> dsl.match_phrase_prefix('name', :name) "
+                "ORDER BY score desc "
                 f"OFFSET {pagination.page_index * pagination.page_size} "
                 f"LIMIT {pagination.page_size}"
             ),
-        ).params(name=f"{name}*")
+        ).params(name=name)
         return self._all(_query)
 
     def count(
@@ -180,8 +181,10 @@ class StateQuery(BaseQuery):
 
     def count_by_name(self, name: str):
         count_result = self.session.execute(
-            sa.sql.text("SELECT COUNT(*) FROM states WHERE states ==> :name"),
-            {"name": f"{name}*"},
+            sa.sql.text(
+                "SELECT COUNT(*) FROM states WHERE states ==> dsl.match_phrase_prefix('name', :name)"
+            ),
+            {"name": name},
         )
         return count_result.scalar_one()
 
@@ -220,11 +223,12 @@ class CityQuery(BaseQuery):
     ) -> Sequence[City]:
         _query = self.query.from_statement(
             sa.sql.text(
-                "SELECT * FROM cities WHERE cities ==> :name "
+                "SELECT zdb.score(ctid), * FROM cities WHERE cities ==> dsl.match_phrase_prefix('name', :name) "
+                "ORDER BY score desc "
                 f"OFFSET {pagination.page_index * pagination.page_size} "
                 f"LIMIT {pagination.page_size}"
             ),
-        ).params(name=f"{name}*")
+        ).params(name=name)
         return self._all(_query)
 
     def count(
@@ -249,8 +253,8 @@ class CityQuery(BaseQuery):
 
     def count_by_name(self, name: str):
         count_result = self.session.execute(
-            sa.sql.text("SELECT COUNT(*) FROM cities WHERE cities ==> :name"),
-            {"name": f"{name}*"},
+            sa.sql.text("SELECT COUNT(*) FROM cities WHERE cities ==> dsl.match_phrase_prefix('name', :name)"),
+            {"name": name},
         )
         return count_result.scalar_one()
 
