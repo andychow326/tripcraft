@@ -37,7 +37,7 @@ const HomeScreen: React.FC = () => {
         </p>
         <Button
           color="primary"
-          className="w-1/4 h-16 text-xl font-semibold"
+          className="w-full h-16 text-xl font-semibold"
           onPress={onClickStartPlanningButton}
         >
           {t("HomeScreen.campaign.button.start_planning")}
