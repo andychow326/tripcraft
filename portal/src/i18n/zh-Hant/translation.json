@@ -33,6 +33,7 @@
   "HomeScreen.campaign.button.start_planning": "現在開始規劃我的行程!",
   "HomeScreen.explore.header": "探索",
   "HomeScreen.explore.popular.header": "人氣目的地",
+  "HomeScreen.my_plans.header": "我的行程",
 
   "PlanCreateScreen.header": "建立新的行程",
   "PlanCreateScreen.input.name.label": "名稱",

@@ -37,6 +37,7 @@
   "HomeScreen.campaign.button.start_planning": "Plan My Trip Now!",
   "HomeScreen.explore.header": "EXPLORE",
   "HomeScreen.explore.popular.header": "Popular Destinations",
+  "HomeScreen.my_plans.header": "My Plans",
 
   "PlanCreateScreen.header": "Create a New Plan",
   "PlanCreateScreen.input.name.label": "Name",
