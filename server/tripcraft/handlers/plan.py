@@ -199,16 +199,14 @@ def _plan(
                     detail.schedules,
                 )
             )
+            schedules = sorted(schedules, key=lambda s: s.time_start)
             detail = PlanConfigDetail(
                 date=date,
-                destinations=detail_original.destinations,
-                schedules=detail_original.schedules,
+                destinations=destinations,
+                schedules=schedules,
             )
             if len(destinations) > 0:
                 last_detination = destinations[-1]
-                detail.destinations = destinations
-            if len(schedules) > 0:
-                detail.schedules.extend(schedules)
         else:
             detail = next(filter(lambda d: d.date == date, plan.config.details), None)
             if detail is None:
