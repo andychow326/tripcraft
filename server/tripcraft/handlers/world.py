@@ -20,7 +20,7 @@ from tripcraft.schemas import (
     with_pagination_params,
 )
 
-world = APIRouter()
+world = APIRouter(tags=["world"])
 
 
 def map_region(region: Region) -> RegionSchema:
