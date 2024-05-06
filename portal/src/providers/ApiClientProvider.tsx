@@ -6,13 +6,14 @@ import React, {
   useMemo,
 } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { Configuration, AuthApi, PlanApi } from "../../generated";
+import { Configuration, AuthApi, PlanApi, WorldApi } from "../../generated";
 import { AppConfig } from "../config";
 import { AuthContext } from "./AuthProvider";
 
 interface ApiClient {
   auth: AuthApi;
   plan: PlanApi;
+  world: WorldApi;
 }
 
 interface ApiClientContextValue {
@@ -43,6 +44,7 @@ const ApiClientProvider = ({ children }: PropsWithChildren): ReactElement => {
     return {
       auth: new AuthApi(config),
       plan: new PlanApi(config),
+      world: new WorldApi(config),
     };
   }, [authContextValue]);
 
