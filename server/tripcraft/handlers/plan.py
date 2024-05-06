@@ -79,8 +79,9 @@ def create_map_plan(is_editable: bool):
 
 @plan.get("/plan", operation_id="plan_get", response_model=PlanMultipleResponse)
 def _plan(user: Annotated[User, Depends(with_current_user(False))]):
+    plans = sorted(user.plans, key=lambda p: p.config.date_start)
     return PlanMultipleResponse(
-        results=list(map(create_map_plan(is_editable=True), user.plans))
+        results=list(map(create_map_plan(is_editable=True), plans))
     )
 
 
