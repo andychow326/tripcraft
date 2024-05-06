@@ -5,6 +5,7 @@ import HomeScreen from "../screens/HomeScreen";
 import AppRoutes from "../AppRoutes";
 import ProtectedScreenLayout from "../components/ProtectedScreenLayout";
 import PlanCreateScreen from "../screens/PlanCreateScreen";
+import PlanScreen from "../screens/PlanScreen";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,14 @@ const router = createBrowserRouter([
       <ProtectedScreenLayout>
         <PlanCreateScreen />
       </ProtectedScreenLayout>
+    ),
+  },
+  {
+    path: AppRoutes.PlanScreen.path,
+    element: (
+      <ScreenLayout>
+        <PlanScreen />
+      </ScreenLayout>
     ),
   },
 ]);

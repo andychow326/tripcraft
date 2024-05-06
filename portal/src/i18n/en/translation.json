@@ -44,5 +44,19 @@
   "PlanCreateScreen.input.date.return.label": "Return",
   "PlanCreateScreen.input.date.depart.placeholder": "Select Depart Date",
   "PlanCreateScreen.input.date.return.placeholder": "Select Return Date",
-  "PlanCreateScreen.button.submit.label": "Submit"
+  "PlanCreateScreen.button.submit.label": "Submit",
+
+  "PlanScreen.plan_not_found": "Plan not found",
+  "PlanScreen.brief_table.holiday": "*Public Holiday",
+  "PlanScreen.detail.button.back": "Back",
+  "PlanScreen.detail.content.header": "Day {day}",
+  "PlanScreen.detail.modal.destination.header": "Choose Your Destination(s)",
+  "PlanScreen.detail.modal.destination.footer.button.confirm": "Confirm",
+  "PlanScreen.detail.schedule.button.add.label": "Add Schedule",
+  "PlanScreen.detail.modal.destination.from.label": "From:",
+  "PlanScreen.detail.modal.destination.to.label": "To:",
+  "PlanScreen.detail.modal.destination.search.from.label": "From City",
+  "PlanScreen.detail.modal.destination.search.from.placeholder": "Select a city which you will depart from",
+  "PlanScreen.detail.modal.destination.search.to.label": "To City",
+  "PlanScreen.detail.modal.destination.search.to.placeholder": "Select cities which you will going to"
 }
