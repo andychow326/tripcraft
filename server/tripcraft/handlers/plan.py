@@ -170,40 +170,49 @@ def _plan(
     date_start = body.config.date_start
     date_end = body.config.date_end
     details: List[PlanConfigDetail] = []
+    last_detination: Optional[PlanConfigDetailDestination] = None
     for day in range((date_end - date_start).days + 1):
         date = date_start + datetime.timedelta(day)
         detail = next(filter(lambda d: d.date == date, body.config.details), None)
         if detail is not None:
+            destinations = list(
+                map(
+                    lambda d: PlanConfigDetailDestination(
+                        type=d.type,
+                        id=d.id,
+                        name=world_query.get_name_by_type_id(d.type, d.id),
+                        country_iso2=world_query.get_country_iso2_by_type_id(
+                            d.type, d.id
+                        ),
+                    ),
+                    detail.destinations,
+                )
+            )
+            if len(destinations) > 0:
+                last_detination = destinations[-1]
+            schedules = list(
+                map(
+                    lambda s: PlanConfigDetailSchedule(
+                        place=s.place, time_start=s.time_start, time_end=s.time_end
+                    ),
+                    detail.schedules,
+                )
+            )
             detail = PlanConfigDetail(
                 date=date,
-                destinations=list(
-                    map(
-                        lambda d: PlanConfigDetailDestination(
-                            type=d.type,
-                            id=d.id,
-                            name=world_query.get_name_by_type_id(d.type, d.id),
-                            country_iso2=world_query.get_country_iso2_by_type_id(
-                                d.type, d.id
-                            ),
-                        ),
-                        detail.destinations,
-                    )
-                ),
-                schedules=list(
-                    map(
-                        lambda s: PlanConfigDetailSchedule(
-                            place=s.place, time_start=s.time_start, time_end=s.time_end
-                        ),
-                        detail.schedules,
-                    )
-                ),
+                destinations=destinations,
+                schedules=schedules,
             )
         else:
-            detail = PlanConfigDetail(
-                date=date,
-                destinations=[],
-                schedules=[],
-            )
+            detail = next(filter(lambda d: d.date == date, plan.config.details), None)
+            if detail is None:
+                detail = PlanConfigDetail(
+                    date=date,
+                    destinations=[],
+                    schedules=[],
+                )
+            if last_detination is not None:
+                detail.destinations = [last_detination]
         details.append(detail)
 
     plan = Plan(
