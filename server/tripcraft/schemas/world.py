@@ -26,8 +26,8 @@ class CountrySchema(BaseModelWithCamelCaseAlias):
     name: Translations
     iso3: str
     iso2: str
-    latitude: float
-    longitude: float
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
     emoji: str
     region: Optional[RegionSchema]
     sub_region: Optional[SubRegionSchema]
@@ -36,16 +36,16 @@ class CountrySchema(BaseModelWithCamelCaseAlias):
 class StateSchema(BaseModelWithCamelCaseAlias):
     id: int
     name: Translations
-    latitude: float
-    longitude: float
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
     country: CountrySchema
 
 
 class CitySchema(BaseModelWithCamelCaseAlias):
     id: int
     name: Translations
-    latitude: float
-    longitude: float
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
     country: CountrySchema
     state: StateSchema
 
