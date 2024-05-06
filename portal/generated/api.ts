@@ -71,13 +71,13 @@ export interface CitySchema {
      * @type {number}
      * @memberof CitySchema
      */
-    'latitude': number;
+    'latitude'?: number | null;
     /**
      * 
      * @type {number}
      * @memberof CitySchema
      */
-    'longitude': number;
+    'longitude'?: number | null;
     /**
      * 
      * @type {CountrySchema}
@@ -151,13 +151,13 @@ export interface CountrySchema {
      * @type {number}
      * @memberof CountrySchema
      */
-    'latitude': number;
+    'latitude'?: number | null;
     /**
      * 
      * @type {number}
      * @memberof CountrySchema
      */
-    'longitude': number;
+    'longitude'?: number | null;
     /**
      * 
      * @type {string}
@@ -631,13 +631,13 @@ export interface StateSchema {
      * @type {number}
      * @memberof StateSchema
      */
-    'latitude': number;
+    'latitude'?: number | null;
     /**
      * 
      * @type {number}
      * @memberof StateSchema
      */
-    'longitude': number;
+    'longitude'?: number | null;
     /**
      * 
      * @type {CountrySchema}
@@ -958,266 +958,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * 
-         * @summary  World City
-         * @param {string | null} [name] 
-         * @param {number | null} [id] 
-         * @param {number | null} [stateId] 
-         * @param {number | null} [countryId] 
-         * @param {number} [pageIndex] 
-         * @param {number} [pageSize] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        worldCityGet: async (name?: string | null, id?: number | null, stateId?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/world/city`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (name !== undefined) {
-                localVarQueryParameter['name'] = name;
-            }
-
-            if (id !== undefined) {
-                localVarQueryParameter['id'] = id;
-            }
-
-            if (stateId !== undefined) {
-                localVarQueryParameter['stateId'] = stateId;
-            }
-
-            if (countryId !== undefined) {
-                localVarQueryParameter['countryId'] = countryId;
-            }
-
-            if (pageIndex !== undefined) {
-                localVarQueryParameter['pageIndex'] = pageIndex;
-            }
-
-            if (pageSize !== undefined) {
-                localVarQueryParameter['pageSize'] = pageSize;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary  World Country
-         * @param {string | null} [name] 
-         * @param {number | null} [id] 
-         * @param {number | null} [subRegionId] 
-         * @param {number | null} [regionId] 
-         * @param {number} [pageIndex] 
-         * @param {number} [pageSize] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        worldCountryGet: async (name?: string | null, id?: number | null, subRegionId?: number | null, regionId?: number | null, pageIndex?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/world/country`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (name !== undefined) {
-                localVarQueryParameter['name'] = name;
-            }
-
-            if (id !== undefined) {
-                localVarQueryParameter['id'] = id;
-            }
-
-            if (subRegionId !== undefined) {
-                localVarQueryParameter['subRegionId'] = subRegionId;
-            }
-
-            if (regionId !== undefined) {
-                localVarQueryParameter['regionId'] = regionId;
-            }
-
-            if (pageIndex !== undefined) {
-                localVarQueryParameter['pageIndex'] = pageIndex;
-            }
-
-            if (pageSize !== undefined) {
-                localVarQueryParameter['pageSize'] = pageSize;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary  World Region
-         * @param {string | null} [name] 
-         * @param {number | null} [id] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        worldRegionGet: async (name?: string | null, id?: number | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/world/region`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (name !== undefined) {
-                localVarQueryParameter['name'] = name;
-            }
-
-            if (id !== undefined) {
-                localVarQueryParameter['id'] = id;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary  World State
-         * @param {string | null} [name] 
-         * @param {number | null} [id] 
-         * @param {number | null} [countryId] 
-         * @param {number} [pageIndex] 
-         * @param {number} [pageSize] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        worldStateGet: async (name?: string | null, id?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/world/state`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (name !== undefined) {
-                localVarQueryParameter['name'] = name;
-            }
-
-            if (id !== undefined) {
-                localVarQueryParameter['id'] = id;
-            }
-
-            if (countryId !== undefined) {
-                localVarQueryParameter['countryId'] = countryId;
-            }
-
-            if (pageIndex !== undefined) {
-                localVarQueryParameter['pageIndex'] = pageIndex;
-            }
-
-            if (pageSize !== undefined) {
-                localVarQueryParameter['pageSize'] = pageSize;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary  World Sub Region
-         * @param {string | null} [name] 
-         * @param {number | null} [id] 
-         * @param {number | null} [regionId] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        worldSubRegionGet: async (name?: string | null, id?: number | null, regionId?: number | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/world/sub_region`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (name !== undefined) {
-                localVarQueryParameter['name'] = name;
-            }
-
-            if (id !== undefined) {
-                localVarQueryParameter['id'] = id;
-            }
-
-            if (regionId !== undefined) {
-                localVarQueryParameter['regionId'] = regionId;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -1240,88 +980,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['DefaultApi.healthzGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
-        /**
-         * 
-         * @summary  World City
-         * @param {string | null} [name] 
-         * @param {number | null} [id] 
-         * @param {number | null} [stateId] 
-         * @param {number | null} [countryId] 
-         * @param {number} [pageIndex] 
-         * @param {number} [pageSize] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async worldCityGet(name?: string | null, id?: number | null, stateId?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CityResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.worldCityGet(name, id, stateId, countryId, pageIndex, pageSize, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['DefaultApi.worldCityGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @summary  World Country
-         * @param {string | null} [name] 
-         * @param {number | null} [id] 
-         * @param {number | null} [subRegionId] 
-         * @param {number | null} [regionId] 
-         * @param {number} [pageIndex] 
-         * @param {number} [pageSize] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async worldCountryGet(name?: string | null, id?: number | null, subRegionId?: number | null, regionId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CountryResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.worldCountryGet(name, id, subRegionId, regionId, pageIndex, pageSize, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['DefaultApi.worldCountryGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @summary  World Region
-         * @param {string | null} [name] 
-         * @param {number | null} [id] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async worldRegionGet(name?: string | null, id?: number | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RegionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.worldRegionGet(name, id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['DefaultApi.worldRegionGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @summary  World State
-         * @param {string | null} [name] 
-         * @param {number | null} [id] 
-         * @param {number | null} [countryId] 
-         * @param {number} [pageIndex] 
-         * @param {number} [pageSize] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async worldStateGet(name?: string | null, id?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StateResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.worldStateGet(name, id, countryId, pageIndex, pageSize, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['DefaultApi.worldStateGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @summary  World Sub Region
-         * @param {string | null} [name] 
-         * @param {number | null} [id] 
-         * @param {number | null} [regionId] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async worldSubRegionGet(name?: string | null, id?: number | null, regionId?: number | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SubRegionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.worldSubRegionGet(name, id, regionId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['DefaultApi.worldSubRegionGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
     }
 };
 
@@ -1340,73 +998,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         healthzGet(options?: any): AxiosPromise<any> {
             return localVarFp.healthzGet(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary  World City
-         * @param {string | null} [name] 
-         * @param {number | null} [id] 
-         * @param {number | null} [stateId] 
-         * @param {number | null} [countryId] 
-         * @param {number} [pageIndex] 
-         * @param {number} [pageSize] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        worldCityGet(name?: string | null, id?: number | null, stateId?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: any): AxiosPromise<CityResponse> {
-            return localVarFp.worldCityGet(name, id, stateId, countryId, pageIndex, pageSize, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary  World Country
-         * @param {string | null} [name] 
-         * @param {number | null} [id] 
-         * @param {number | null} [subRegionId] 
-         * @param {number | null} [regionId] 
-         * @param {number} [pageIndex] 
-         * @param {number} [pageSize] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        worldCountryGet(name?: string | null, id?: number | null, subRegionId?: number | null, regionId?: number | null, pageIndex?: number, pageSize?: number, options?: any): AxiosPromise<CountryResponse> {
-            return localVarFp.worldCountryGet(name, id, subRegionId, regionId, pageIndex, pageSize, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary  World Region
-         * @param {string | null} [name] 
-         * @param {number | null} [id] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        worldRegionGet(name?: string | null, id?: number | null, options?: any): AxiosPromise<RegionResponse> {
-            return localVarFp.worldRegionGet(name, id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary  World State
-         * @param {string | null} [name] 
-         * @param {number | null} [id] 
-         * @param {number | null} [countryId] 
-         * @param {number} [pageIndex] 
-         * @param {number} [pageSize] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        worldStateGet(name?: string | null, id?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: any): AxiosPromise<StateResponse> {
-            return localVarFp.worldStateGet(name, id, countryId, pageIndex, pageSize, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary  World Sub Region
-         * @param {string | null} [name] 
-         * @param {number | null} [id] 
-         * @param {number | null} [regionId] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        worldSubRegionGet(name?: string | null, id?: number | null, regionId?: number | null, options?: any): AxiosPromise<SubRegionResponse> {
-            return localVarFp.worldSubRegionGet(name, id, regionId, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1427,83 +1018,6 @@ export class DefaultApi extends BaseAPI {
      */
     public healthzGet(options?: RawAxiosRequestConfig) {
         return DefaultApiFp(this.configuration).healthzGet(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary  World City
-     * @param {string | null} [name] 
-     * @param {number | null} [id] 
-     * @param {number | null} [stateId] 
-     * @param {number | null} [countryId] 
-     * @param {number} [pageIndex] 
-     * @param {number} [pageSize] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public worldCityGet(name?: string | null, id?: number | null, stateId?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).worldCityGet(name, id, stateId, countryId, pageIndex, pageSize, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary  World Country
-     * @param {string | null} [name] 
-     * @param {number | null} [id] 
-     * @param {number | null} [subRegionId] 
-     * @param {number | null} [regionId] 
-     * @param {number} [pageIndex] 
-     * @param {number} [pageSize] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public worldCountryGet(name?: string | null, id?: number | null, subRegionId?: number | null, regionId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).worldCountryGet(name, id, subRegionId, regionId, pageIndex, pageSize, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary  World Region
-     * @param {string | null} [name] 
-     * @param {number | null} [id] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public worldRegionGet(name?: string | null, id?: number | null, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).worldRegionGet(name, id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary  World State
-     * @param {string | null} [name] 
-     * @param {number | null} [id] 
-     * @param {number | null} [countryId] 
-     * @param {number} [pageIndex] 
-     * @param {number} [pageSize] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public worldStateGet(name?: string | null, id?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).worldStateGet(name, id, countryId, pageIndex, pageSize, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary  World Sub Region
-     * @param {string | null} [name] 
-     * @param {number | null} [id] 
-     * @param {number | null} [regionId] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public worldSubRegionGet(name?: string | null, id?: number | null, regionId?: number | null, options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).worldSubRegionGet(name, id, regionId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1892,6 +1406,531 @@ export class PlanApi extends BaseAPI {
      */
     public planPost(planRequest: PlanRequest, options?: RawAxiosRequestConfig) {
         return PlanApiFp(this.configuration).planPost(planRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * WorldApi - axios parameter creator
+ * @export
+ */
+export const WorldApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary  World City
+         * @param {string | null} [name] 
+         * @param {number | null} [id] 
+         * @param {number | null} [stateId] 
+         * @param {number | null} [countryId] 
+         * @param {number} [pageIndex] 
+         * @param {number} [pageSize] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        worldCityGet: async (name?: string | null, id?: number | null, stateId?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/world/city`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            if (stateId !== undefined) {
+                localVarQueryParameter['stateId'] = stateId;
+            }
+
+            if (countryId !== undefined) {
+                localVarQueryParameter['countryId'] = countryId;
+            }
+
+            if (pageIndex !== undefined) {
+                localVarQueryParameter['pageIndex'] = pageIndex;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary  World Country
+         * @param {string | null} [name] 
+         * @param {number | null} [id] 
+         * @param {number | null} [subRegionId] 
+         * @param {number | null} [regionId] 
+         * @param {number} [pageIndex] 
+         * @param {number} [pageSize] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        worldCountryGet: async (name?: string | null, id?: number | null, subRegionId?: number | null, regionId?: number | null, pageIndex?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/world/country`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            if (subRegionId !== undefined) {
+                localVarQueryParameter['subRegionId'] = subRegionId;
+            }
+
+            if (regionId !== undefined) {
+                localVarQueryParameter['regionId'] = regionId;
+            }
+
+            if (pageIndex !== undefined) {
+                localVarQueryParameter['pageIndex'] = pageIndex;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary  World Region
+         * @param {string | null} [name] 
+         * @param {number | null} [id] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        worldRegionGet: async (name?: string | null, id?: number | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/world/region`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary  World State
+         * @param {string | null} [name] 
+         * @param {number | null} [id] 
+         * @param {number | null} [countryId] 
+         * @param {number} [pageIndex] 
+         * @param {number} [pageSize] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        worldStateGet: async (name?: string | null, id?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/world/state`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            if (countryId !== undefined) {
+                localVarQueryParameter['countryId'] = countryId;
+            }
+
+            if (pageIndex !== undefined) {
+                localVarQueryParameter['pageIndex'] = pageIndex;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary  World Sub Region
+         * @param {string | null} [name] 
+         * @param {number | null} [id] 
+         * @param {number | null} [regionId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        worldSubRegionGet: async (name?: string | null, id?: number | null, regionId?: number | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/world/sub_region`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            if (regionId !== undefined) {
+                localVarQueryParameter['regionId'] = regionId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * WorldApi - functional programming interface
+ * @export
+ */
+export const WorldApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = WorldApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary  World City
+         * @param {string | null} [name] 
+         * @param {number | null} [id] 
+         * @param {number | null} [stateId] 
+         * @param {number | null} [countryId] 
+         * @param {number} [pageIndex] 
+         * @param {number} [pageSize] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async worldCityGet(name?: string | null, id?: number | null, stateId?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CityResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.worldCityGet(name, id, stateId, countryId, pageIndex, pageSize, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['WorldApi.worldCityGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary  World Country
+         * @param {string | null} [name] 
+         * @param {number | null} [id] 
+         * @param {number | null} [subRegionId] 
+         * @param {number | null} [regionId] 
+         * @param {number} [pageIndex] 
+         * @param {number} [pageSize] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async worldCountryGet(name?: string | null, id?: number | null, subRegionId?: number | null, regionId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CountryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.worldCountryGet(name, id, subRegionId, regionId, pageIndex, pageSize, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['WorldApi.worldCountryGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary  World Region
+         * @param {string | null} [name] 
+         * @param {number | null} [id] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async worldRegionGet(name?: string | null, id?: number | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RegionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.worldRegionGet(name, id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['WorldApi.worldRegionGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary  World State
+         * @param {string | null} [name] 
+         * @param {number | null} [id] 
+         * @param {number | null} [countryId] 
+         * @param {number} [pageIndex] 
+         * @param {number} [pageSize] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async worldStateGet(name?: string | null, id?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StateResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.worldStateGet(name, id, countryId, pageIndex, pageSize, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['WorldApi.worldStateGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary  World Sub Region
+         * @param {string | null} [name] 
+         * @param {number | null} [id] 
+         * @param {number | null} [regionId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async worldSubRegionGet(name?: string | null, id?: number | null, regionId?: number | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SubRegionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.worldSubRegionGet(name, id, regionId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['WorldApi.worldSubRegionGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * WorldApi - factory interface
+ * @export
+ */
+export const WorldApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = WorldApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary  World City
+         * @param {string | null} [name] 
+         * @param {number | null} [id] 
+         * @param {number | null} [stateId] 
+         * @param {number | null} [countryId] 
+         * @param {number} [pageIndex] 
+         * @param {number} [pageSize] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        worldCityGet(name?: string | null, id?: number | null, stateId?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: any): AxiosPromise<CityResponse> {
+            return localVarFp.worldCityGet(name, id, stateId, countryId, pageIndex, pageSize, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary  World Country
+         * @param {string | null} [name] 
+         * @param {number | null} [id] 
+         * @param {number | null} [subRegionId] 
+         * @param {number | null} [regionId] 
+         * @param {number} [pageIndex] 
+         * @param {number} [pageSize] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        worldCountryGet(name?: string | null, id?: number | null, subRegionId?: number | null, regionId?: number | null, pageIndex?: number, pageSize?: number, options?: any): AxiosPromise<CountryResponse> {
+            return localVarFp.worldCountryGet(name, id, subRegionId, regionId, pageIndex, pageSize, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary  World Region
+         * @param {string | null} [name] 
+         * @param {number | null} [id] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        worldRegionGet(name?: string | null, id?: number | null, options?: any): AxiosPromise<RegionResponse> {
+            return localVarFp.worldRegionGet(name, id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary  World State
+         * @param {string | null} [name] 
+         * @param {number | null} [id] 
+         * @param {number | null} [countryId] 
+         * @param {number} [pageIndex] 
+         * @param {number} [pageSize] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        worldStateGet(name?: string | null, id?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: any): AxiosPromise<StateResponse> {
+            return localVarFp.worldStateGet(name, id, countryId, pageIndex, pageSize, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary  World Sub Region
+         * @param {string | null} [name] 
+         * @param {number | null} [id] 
+         * @param {number | null} [regionId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        worldSubRegionGet(name?: string | null, id?: number | null, regionId?: number | null, options?: any): AxiosPromise<SubRegionResponse> {
+            return localVarFp.worldSubRegionGet(name, id, regionId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * WorldApi - object-oriented interface
+ * @export
+ * @class WorldApi
+ * @extends {BaseAPI}
+ */
+export class WorldApi extends BaseAPI {
+    /**
+     * 
+     * @summary  World City
+     * @param {string | null} [name] 
+     * @param {number | null} [id] 
+     * @param {number | null} [stateId] 
+     * @param {number | null} [countryId] 
+     * @param {number} [pageIndex] 
+     * @param {number} [pageSize] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorldApi
+     */
+    public worldCityGet(name?: string | null, id?: number | null, stateId?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig) {
+        return WorldApiFp(this.configuration).worldCityGet(name, id, stateId, countryId, pageIndex, pageSize, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary  World Country
+     * @param {string | null} [name] 
+     * @param {number | null} [id] 
+     * @param {number | null} [subRegionId] 
+     * @param {number | null} [regionId] 
+     * @param {number} [pageIndex] 
+     * @param {number} [pageSize] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorldApi
+     */
+    public worldCountryGet(name?: string | null, id?: number | null, subRegionId?: number | null, regionId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig) {
+        return WorldApiFp(this.configuration).worldCountryGet(name, id, subRegionId, regionId, pageIndex, pageSize, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary  World Region
+     * @param {string | null} [name] 
+     * @param {number | null} [id] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorldApi
+     */
+    public worldRegionGet(name?: string | null, id?: number | null, options?: RawAxiosRequestConfig) {
+        return WorldApiFp(this.configuration).worldRegionGet(name, id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary  World State
+     * @param {string | null} [name] 
+     * @param {number | null} [id] 
+     * @param {number | null} [countryId] 
+     * @param {number} [pageIndex] 
+     * @param {number} [pageSize] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorldApi
+     */
+    public worldStateGet(name?: string | null, id?: number | null, countryId?: number | null, pageIndex?: number, pageSize?: number, options?: RawAxiosRequestConfig) {
+        return WorldApiFp(this.configuration).worldStateGet(name, id, countryId, pageIndex, pageSize, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary  World Sub Region
+     * @param {string | null} [name] 
+     * @param {number | null} [id] 
+     * @param {number | null} [regionId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorldApi
+     */
+    public worldSubRegionGet(name?: string | null, id?: number | null, regionId?: number | null, options?: RawAxiosRequestConfig) {
+        return WorldApiFp(this.configuration).worldSubRegionGet(name, id, regionId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
