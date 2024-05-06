@@ -64,5 +64,11 @@
   "PlanScreen.detail.modal.schedule.input.place.placeholder": "Enter the name of the place",
   "PlanScreen.detail.modal.schedule.input.time_start.label": "Start Time",
   "PlanScreen.detail.modal.schedule.input.time_end.label": "End Time",
-  "PlanScreen.detail.modal.schedule.footer.button.confirm": "Confirm"
+  "PlanScreen.detail.modal.schedule.footer.button.confirm": "Confirm",
+  "PlanScreen.detail.schedule.card.button.edit.label": "Edit",
+  "PlanScreen.detail.schedule.card.button.remove.label": "Remove",
+  "PlanScreen.detail.modal.schedule_remove.header": "Remove Schedule",
+  "PlanScreen.detail.modal.schedule_remove.content": "Are you sure to remove this schedule?",
+  "PlanScreen.detail.modal.schedule_remove.footer.button.confirm": "Confirm",
+  "PlanScreen.detail.modal.schedule_remove.footer.button.cancel": "Cancel"
 }

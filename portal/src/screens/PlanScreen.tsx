@@ -1,7 +1,6 @@
 import React, {
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useRef,
   useState,
@@ -22,11 +21,13 @@ import {
   Modal,
   ModalBody,
   ModalContent,
+  ModalFooter,
   ModalHeader,
   Spinner,
   TimeInput,
   useDisclosure,
 } from "@nextui-org/react";
+import { parseTime } from "@internationalized/date";
 import cn from "classnames";
 import { z } from "zod";
 import { TimeValue } from "@react-types/datepicker";
@@ -35,7 +36,7 @@ import { AppLocaleContext } from "../providers/AppLocaleProvider";
 import { IconArrowLeft, IconPencil, IconPlus } from "@tabler/icons-react";
 import useQueryWorldState from "../queries/useQueryWorldState";
 import { useDebounce } from "@uidotdev/usehooks";
-import { StateSchema } from "../../generated";
+import { PlanConfigDetailScheduleSchema, StateSchema } from "../../generated";
 import useMutatePlanDetail from "../queries/useMutatePlanDetail";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -81,6 +82,10 @@ const PlanScreen: React.FC = () => {
     isOpen: isOpenScheduleEditModal,
     onOpenChange: onOpenChangeScheduleEditModal,
   } = useDisclosure();
+  const {
+    isOpen: isOpenScheduleRemoveModal,
+    onOpenChange: onOpenChangeScheduleRemoveModal,
+  } = useDisclosure();
 
   const {
     data: planData,
@@ -97,8 +102,6 @@ const PlanScreen: React.FC = () => {
     () => _worldStateData?.pages.flatMap((data) => data.results),
     [_worldStateData?.pages],
   );
-
-  useEffect(() => {}, []);
 
   const {
     mutateAsync: mutatePlanDetail,
@@ -121,15 +124,35 @@ const PlanScreen: React.FC = () => {
     formState: formStatePlanScheduleForm,
     clearErrors: clearErrorsPlanScheduleForm,
     reset: resetPlanScheduleForm,
+    watch: watchPlanScheduleForm,
   } = useForm<PlanScheduleFormValues>({
     resolver: zodResolver(PlanScheduleFormSchema),
   });
+  const planScheduleFormTimeStart = watchPlanScheduleForm("time.timeStart");
+  const planScheduleFormTimeEnd = watchPlanScheduleForm("time.timeEnd");
+
+  const [currentSchedules, setCurrentSchedules] = useState<
+    PlanConfigDetailScheduleSchema[]
+  >([]);
 
   const onValidSubmitPlanScheduleForm = useCallback(
     (date: string) => async (value: PlanScheduleFormValues) => {
       if (planData == null) {
         return;
       }
+      const originalDetail = planData.config.details?.find(
+        (d) => d.date == date,
+      );
+      if (originalDetail == null) {
+        return;
+      }
+
+      const newSchedule: PlanConfigDetailScheduleSchema = {
+        place: value.place,
+        timeStart: `${date}T${value.time.timeStart.toString()}Z`,
+        timeEnd: `${date}T${value.time.timeEnd.toString()}Z`,
+      };
+
       try {
         await mutatePlanDetail({
           ...planData,
@@ -138,14 +161,8 @@ const PlanScreen: React.FC = () => {
             details: [
               {
                 date: date,
-                destinations: [],
-                schedules: [
-                  {
-                    place: value.place,
-                    timeStart: `${date}T${value.time.timeStart.toString()}Z`,
-                    timeEnd: `${date}T${value.time.timeEnd.toString()}Z`,
-                  },
-                ],
+                destinations: originalDetail.destinations,
+                schedules: [...currentSchedules, newSchedule],
               },
             ],
           },
@@ -158,6 +175,7 @@ const PlanScreen: React.FC = () => {
       }
     },
     [
+      currentSchedules,
       mutatePlanDetail,
       onOpenChangeScheduleEditModal,
       planData,
@@ -222,6 +240,12 @@ const PlanScreen: React.FC = () => {
       if (planData == null || selectedDestinations.length === 0) {
         return;
       }
+      const originalDetail = planData.config.details?.find(
+        (d) => d.date == date,
+      );
+      if (originalDetail == null) {
+        return;
+      }
       try {
         await mutatePlanDetail({
           ...planData,
@@ -234,7 +258,7 @@ const PlanScreen: React.FC = () => {
                   type: "state",
                   id: destination.id,
                 })),
-                schedules: [],
+                schedules: originalDetail.schedules,
               },
             ],
           },
@@ -266,6 +290,101 @@ const PlanScreen: React.FC = () => {
       });
     },
     [localeString],
+  );
+
+  const onEditScheduleCard = useCallback(
+    (
+      schedule: PlanConfigDetailScheduleSchema,
+      schedules: PlanConfigDetailScheduleSchema[],
+    ) =>
+      () => {
+        setValuePlanScheduleForm("place", schedule.place);
+        setValuePlanScheduleForm(
+          "time.timeStart",
+          parseTime(getTimeString(schedule.timeStart)),
+        );
+        setValuePlanScheduleForm(
+          "time.timeEnd",
+          parseTime(getTimeString(schedule.timeEnd)),
+        );
+        setCurrentSchedules(
+          schedules.filter(
+            (s) =>
+              s.place !== schedule.place &&
+              s.timeStart !== schedule.timeStart &&
+              s.timeEnd !== schedule.timeEnd,
+          ),
+        );
+        onOpenChangeScheduleEditModal();
+      },
+    [getTimeString, onOpenChangeScheduleEditModal, setValuePlanScheduleForm],
+  );
+
+  const onAddScheduleCard = useCallback(
+    (schedules: PlanConfigDetailScheduleSchema[]) => () => {
+      setCurrentSchedules(schedules);
+      onOpenChangeScheduleEditModal();
+    },
+    [onOpenChangeScheduleEditModal],
+  );
+
+  const onClickRemoveScheduleCard = useCallback(
+    (
+      schedule: PlanConfigDetailScheduleSchema,
+      schedules: PlanConfigDetailScheduleSchema[],
+    ) =>
+      () => {
+        setCurrentSchedules(
+          schedules.filter(
+            (s) =>
+              s.place !== schedule.place &&
+              s.timeStart !== schedule.timeStart &&
+              s.timeEnd !== schedule.timeEnd,
+          ),
+        );
+        onOpenChangeScheduleRemoveModal();
+      },
+    [onOpenChangeScheduleRemoveModal],
+  );
+
+  const onRemoveScheduleCard = useCallback(
+    (date: string) => async () => {
+      if (planData == null) {
+        return;
+      }
+      const originalDetail = planData.config.details?.find(
+        (d) => d.date == date,
+      );
+      if (originalDetail == null) {
+        return;
+      }
+      try {
+        await mutatePlanDetail({
+          ...planData,
+          config: {
+            ...planData.config,
+            details: [
+              {
+                date: date,
+                destinations: originalDetail.destinations,
+                schedules: currentSchedules,
+              },
+            ],
+          },
+        });
+        refetchPlanData();
+        onOpenChangeScheduleRemoveModal();
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    [
+      currentSchedules,
+      mutatePlanDetail,
+      onOpenChangeScheduleRemoveModal,
+      planData,
+      refetchPlanData,
+    ],
   );
 
   if (isLoadingPlanData) {
@@ -360,7 +479,7 @@ const PlanScreen: React.FC = () => {
                 {planData.isEditable && (
                   <Button
                     startContent={<IconPlus />}
-                    onPress={onOpenChangeScheduleEditModal}
+                    onPress={onAddScheduleCard(detail.schedules)}
                   >
                     {t("PlanScreen.detail.schedule.button.add.label")}
                   </Button>
@@ -372,15 +491,73 @@ const PlanScreen: React.FC = () => {
                     <CardHeader className="text-xl font-medium">
                       {schedule.place}
                     </CardHeader>
-                    <CardBody>
-                      {getTimeString(schedule.timeStart)} -{" "}
-                      {getTimeString(schedule.timeEnd)}
+                    <CardBody className="flex flex-row justify-between items-center">
+                      <div>
+                        {getTimeString(schedule.timeStart)} -{" "}
+                        {getTimeString(schedule.timeEnd)}
+                      </div>
+                      <div className="flex flex-row gap-4 justify-end">
+                        <Button
+                          color="primary"
+                          onPress={onEditScheduleCard(
+                            schedule,
+                            detail.schedules,
+                          )}
+                        >
+                          {t(
+                            "PlanScreen.detail.schedule.card.button.edit.label",
+                          )}
+                        </Button>
+                        <Button
+                          color="danger"
+                          onPress={onClickRemoveScheduleCard(
+                            schedule,
+                            detail.schedules,
+                          )}
+                        >
+                          {t(
+                            "PlanScreen.detail.schedule.card.button.remove.label",
+                          )}
+                        </Button>
+                      </div>
                     </CardBody>
                   </Card>
                 ))}
               </div>
             </div>
           </div>
+          <Modal
+            isOpen={isOpenScheduleRemoveModal}
+            onOpenChange={onOpenChangeScheduleRemoveModal}
+          >
+            <ModalContent>
+              <ModalHeader>
+                {t("PlanScreen.detail.modal.schedule_remove.header")}
+              </ModalHeader>
+              <ModalBody>
+                {t("PlanScreen.detail.modal.schedule_remove.content")}
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  color="danger"
+                  onPress={onRemoveScheduleCard(detail.date)}
+                  isLoading={isPendingMutatePlanDetail}
+                >
+                  {t(
+                    "PlanScreen.detail.modal.schedule_remove.footer.button.confirm",
+                  )}
+                </Button>
+                <Button
+                  color="default"
+                  onPress={onOpenChangeScheduleRemoveModal}
+                >
+                  {t(
+                    "PlanScreen.detail.modal.schedule_remove.footer.button.cancel",
+                  )}
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
           <Modal
             isOpen={isOpenDestinationModal || detail.destinations.length === 0}
             onOpenChange={onOpenChangeDestinationModal}
@@ -483,7 +660,7 @@ const PlanScreen: React.FC = () => {
                   />
                   <div className="flex flex-row gap-4">
                     <TimeInput
-                      {...registerPlanScheduleForm("time.timeStart")}
+                      value={planScheduleFormTimeStart}
                       onChange={(value) => {
                         clearErrorsPlanScheduleForm("time");
                         setValuePlanScheduleForm("time.timeStart", value);
@@ -497,7 +674,7 @@ const PlanScreen: React.FC = () => {
                       )}
                     />
                     <TimeInput
-                      {...registerPlanScheduleForm("time.timeEnd")}
+                      value={planScheduleFormTimeEnd}
                       onChange={(value) => {
                         clearErrorsPlanScheduleForm("time");
                         setValuePlanScheduleForm("time.timeEnd", value);

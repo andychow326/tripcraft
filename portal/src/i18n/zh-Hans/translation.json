@@ -54,5 +54,17 @@
   "PlanScreen.detail.modal.destination.search.from.label": "从城市",
   "PlanScreen.detail.modal.destination.search.from.placeholder": "选择你出发的城市",
   "PlanScreen.detail.modal.destination.search.to.label": "到城市",
-  "PlanScreen.detail.modal.destination.search.to.placeholder": "选择你到达的城市"
+  "PlanScreen.detail.modal.destination.search.to.placeholder": "选择你到达的城市",
+  "PlanScreen.detail.modal.schedule.header": "新增项目",
+  "PlanScreen.detail.modal.schedule.input.place.label": "地点",
+  "PlanScreen.detail.modal.schedule.input.place.placeholder": "输入地点名称",
+  "PlanScreen.detail.modal.schedule.input.time_start.label": "开始时间",
+  "PlanScreen.detail.modal.schedule.input.time_end.label": "结束时间",
+  "PlanScreen.detail.modal.schedule.footer.button.confirm": "确认",
+  "PlanScreen.detail.schedule.card.button.edit.label": "修改",
+  "PlanScreen.detail.schedule.card.button.remove.label": "删除",
+  "PlanScreen.detail.modal.schedule_remove.header": "删除项目",
+  "PlanScreen.detail.modal.schedule_remove.content": "您确定要删除此项目吗？",
+  "PlanScreen.detail.modal.schedule_remove.footer.button.confirm": "确认",
+  "PlanScreen.detail.modal.schedule_remove.footer.button.cancel": "取消"
 }
