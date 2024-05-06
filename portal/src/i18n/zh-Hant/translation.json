@@ -40,5 +40,19 @@
   "PlanCreateScreen.input.date.return.label": "回程",
   "PlanCreateScreen.input.date.depart.placeholder": "選擇去程日期",
   "PlanCreateScreen.input.date.return.placeholder": "選擇回程日期",
-  "PlanCreateScreen.button.submit.label": "提交"
+  "PlanCreateScreen.button.submit.label": "提交",
+
+  "PlanScreen.plan_not_found": "找不到行程",
+  "PlanScreen.brief_table.holiday": "*公眾假期",
+  "PlanScreen.detail.button.back": "返回",
+  "PlanScreen.detail.content.header": "第 {day} 日",
+  "PlanScreen.detail.modal.destination.header": "請選擇你的目的地",
+  "PlanScreen.detail.modal.destination.footer.button.confirm": "確認",
+  "PlanScreen.detail.schedule.button.add.label": "新增項目",
+  "PlanScreen.detail.modal.destination.from.label": "由:",
+  "PlanScreen.detail.modal.destination.to.label": "到:",
+  "PlanScreen.detail.modal.destination.search.from.label": "從城市",
+  "PlanScreen.detail.modal.destination.search.from.placeholder": "選擇你出發的城市",
+  "PlanScreen.detail.modal.destination.search.to.label": "到城市",
+  "PlanScreen.detail.modal.destination.search.to.placeholder": "選擇你到達的城市"
 }
